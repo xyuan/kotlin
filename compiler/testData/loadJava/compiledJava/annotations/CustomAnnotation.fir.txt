@@ -1,2 +1,17 @@
 public abstract interface CustomAnnotation : R|kotlin/Any| {
+    @R|test/CustomAnnotation.MyAnnotation|(R|test/CustomAnnotation.MyEnum.ONE|()) public open class MyTest : R|kotlin/Any| {
+        public constructor(): R|test/CustomAnnotation.MyTest|
+
+    }
+
+    public abstract annotation class MyAnnotation : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    public final enum class MyEnum : R|kotlin/Enum<test/CustomAnnotation.MyEnum>| {
+        public final static field ONE:
+
+    }
+
 }

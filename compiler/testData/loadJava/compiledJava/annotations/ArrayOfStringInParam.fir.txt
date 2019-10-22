@@ -1,2 +1,12 @@
 public abstract interface ArrayOfStringInParam : R|kotlin/Any| {
+    public abstract annotation class MyAnnotation : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/ArrayOfStringInParam.MyAnnotation|(<implicitArrayOf>(String(a), String(b), String(c))) public open class A : R|kotlin/Any| {
+        public constructor(): R|test/ArrayOfStringInParam.A|
+
+    }
+
 }

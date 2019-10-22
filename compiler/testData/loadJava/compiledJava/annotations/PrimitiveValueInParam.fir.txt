@@ -1,2 +1,22 @@
 public abstract interface PrimitiveValueInParam : R|kotlin/Any| {
+    public abstract annotation class Ann : R|kotlin/Annotation| {
+        public abstract operator fun i():
+
+        public abstract operator fun l():
+
+        public abstract operator fun d():
+
+        public abstract operator fun f():
+
+        public abstract operator fun bool():
+
+        public abstract operator fun str():
+
+    }
+
+    @R|test/PrimitiveValueInParam.Ann|(Int(1), Long(1), Double(1.0), Float(1.0), Boolean(true), String(str)) public open class A : R|kotlin/Any| {
+        public constructor(): R|test/PrimitiveValueInParam.A|
+
+    }
+
 }

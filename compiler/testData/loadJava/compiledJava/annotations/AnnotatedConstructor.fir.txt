@@ -1,4 +1,9 @@
 public open class AnnotatedConstructor : R|kotlin/Any| {
     @R|test/AnnotatedConstructor.Anno|(String(constructor)) public constructor(): R|test/AnnotatedConstructor|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

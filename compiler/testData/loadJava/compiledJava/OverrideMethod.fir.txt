@@ -1,4 +1,29 @@
 public open class OverrideMethod : R|kotlin/Any| {
     public constructor(): R|test/OverrideMethod|
 
+    public/*package*/ open inner class SuperBase : R|kotlin/Any| {
+        public/*package*/ open operator fun quux(x: ):
+
+        public/*package*/ constructor(): R|test/OverrideMethod.SuperBase|
+
+    }
+
+    public/*package*/ open inner class Base : R|test/OverrideMethod.SuperBase| {
+        public/*package*/ open operator fun foo(s: ):
+
+        public/*package*/ open operator fun bar():
+
+        public/*package*/ constructor(): R|test/OverrideMethod.Base|
+
+    }
+
+    public/*package*/ open inner class Derived : R|test/OverrideMethod.Base| {
+        @R|java/lang/Override|() public/*package*/ open operator fun foo(s: ):
+
+        public/*package*/ open operator fun baz():
+
+        public/*package*/ constructor(): R|test/OverrideMethod.Derived|
+
+    }
+
 }

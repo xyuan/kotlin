@@ -3,4 +3,9 @@ public open class AnnotatedValueParameter : R|kotlin/Any| {
 
     public constructor(): R|test/AnnotatedValueParameter|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

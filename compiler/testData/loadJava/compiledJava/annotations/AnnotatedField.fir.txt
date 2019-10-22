@@ -5,4 +5,9 @@ public open class AnnotatedField : R|kotlin/Any| {
 
     public constructor(): R|test/AnnotatedField|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

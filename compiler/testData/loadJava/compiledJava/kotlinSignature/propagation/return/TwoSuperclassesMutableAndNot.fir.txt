@@ -1,2 +1,21 @@
 public abstract interface TwoSuperclassesMutableAndNot : R|kotlin/Any| {
+    public abstract interface Super1 : R|kotlin/Any| {
+        public abstract operator fun foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Super2 : R|kotlin/Any| {
+        public abstract operator fun foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Sub : R|test/TwoSuperclassesMutableAndNot.Super1|, R|test/TwoSuperclassesMutableAndNot.Super2| {
+        public abstract operator fun foo():
+
+    }
+
 }

@@ -1,4 +1,22 @@
 public open class RawSuperTypeWithRecursiveBoundMultipleParameters : R|kotlin/Any| {
     public constructor(): R|test/RawSuperTypeWithRecursiveBoundMultipleParameters|
 
+    public abstract interface Super<R, T : R|test/RawSuperTypeWithRecursiveBoundMultipleParameters.Super<R, T>?|> : R|kotlin/Any| {
+        public abstract operator fun foo(r: , t: ):
+
+        public abstract operator fun dummy():
+
+    }
+
+    public open inner class Derived : R|kotlin/Any|, R|test/RawSuperTypeWithRecursiveBoundMultipleParameters.Super<*, *>| {
+        public open operator fun foo(o: , o1: ):
+
+        @R|java/lang/Override|() public open operator fun foo(r: , t: ):
+
+        @R|java/lang/Override|() public open operator fun dummy():
+
+        public constructor(): R|test/RawSuperTypeWithRecursiveBoundMultipleParameters.Derived|
+
+    }
+
 }

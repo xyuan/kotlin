@@ -1,2 +1,14 @@
 public abstract interface TypeParamOfFun : R|kotlin/Any| {
+    public abstract interface Super : R|kotlin/Any| {
+        @R|org/jetbrains/annotations/NotNull|() public abstract operator fun <T> foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Sub : R|test/TypeParamOfFun.Super| {
+        public abstract operator fun <E> foo():
+
+    }
+
 }

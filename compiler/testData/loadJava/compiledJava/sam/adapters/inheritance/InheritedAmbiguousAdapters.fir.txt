@@ -1,2 +1,12 @@
 public abstract interface InheritedAmbiguousAdapters : R|kotlin/Any| {
+    public abstract interface Super : R|kotlin/Any| {
+        public abstract operator fun foo(r: ):
+
+        public abstract operator fun foo(r: ):
+
+    }
+
+    public abstract interface Sub : R|test/InheritedAmbiguousAdapters.Super| {
+    }
+
 }

@@ -1,2 +1,14 @@
 public abstract interface InheritNullability : R|kotlin/Any| {
+    public abstract interface Super : R|kotlin/Any| {
+        public abstract operator fun foo(@R|org/jetbrains/annotations/NotNull|() p: ):
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Sub : R|test/InheritNullability.Super| {
+        public abstract operator fun foo(p: ):
+
+    }
+
 }

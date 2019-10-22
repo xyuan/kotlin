@@ -1,4 +1,18 @@
 public final class DifferentParametersCount : R|kotlin/Any| {
     public constructor(): R|test/DifferentParametersCount|
 
+    public open class A : R|kotlin/Any| {
+        public open static operator fun foo(x: , y: ):
+
+        public constructor(): R|test/DifferentParametersCount.A|
+
+    }
+
+    public open class B : R|test/DifferentParametersCount.A| {
+        public open static operator fun foo(x: ):
+
+        public constructor(): R|test/DifferentParametersCount.B|
+
+    }
+
 }

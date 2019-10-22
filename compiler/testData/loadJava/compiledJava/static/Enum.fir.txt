@@ -5,4 +5,22 @@ public final enum class Enum : R|kotlin/Enum<test/Enum>| {
 
     public final static field C: R|ft<test/Enum, test/Enum?>!|
 
+    public open class Nested : R|kotlin/Any| {
+        public/*package*/ open operator fun foo():
+
+        public/*package*/ open operator fun values():
+
+        public constructor(): R|test/Enum.Nested|
+
+    }
+
+    public open inner class Inner : R|kotlin/Any| {
+        public/*package*/ open operator fun bar():
+
+        public/*package*/ open operator fun valueOf(s: ):
+
+        public constructor(): R|test/Enum.Inner|
+
+    }
+
 }

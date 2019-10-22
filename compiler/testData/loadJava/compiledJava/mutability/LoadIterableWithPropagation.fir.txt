@@ -1,2 +1,26 @@
 public abstract interface LoadIterableWithPropagation : R|kotlin/Any| {
+    public abstract interface LoadIterable<T> : R|kotlin/Any| {
+        @R|kotlin/annotations/jvm/Mutable|() public abstract operator fun getIterable():
+
+        public abstract operator fun setIterable(@R|kotlin/annotations/jvm/Mutable|() Iterable: ):
+
+        @R|kotlin/annotations/jvm/ReadOnly|() public abstract operator fun getReadOnlyIterable():
+
+        public abstract operator fun setReadOnlyIterable(@R|kotlin/annotations/jvm/ReadOnly|() Iterable: ):
+
+    }
+
+    public open class LoadIterableImpl<T> : R|kotlin/Any|, R|test/LoadIterableWithPropagation.LoadIterable<T>| {
+        public open operator fun getIterable():
+
+        public open operator fun setIterable(Iterable: ):
+
+        public open operator fun getReadOnlyIterable():
+
+        public open operator fun setReadOnlyIterable(Iterable: ):
+
+        public constructor<T>(): R|test/LoadIterableWithPropagation.LoadIterableImpl<T>|
+
+    }
+
 }

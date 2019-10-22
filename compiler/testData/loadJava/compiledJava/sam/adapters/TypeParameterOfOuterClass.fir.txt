@@ -1,4 +1,11 @@
 public open class TypeParameterOfOuterClass<T> : R|kotlin/Any| {
     public constructor<T>(): R|test/TypeParameterOfOuterClass<T>|
 
+    public open inner class Inner : R|kotlin/Any| {
+        public open operator fun foo(comparator: ):
+
+        public constructor(): R|test/TypeParameterOfOuterClass.Inner|
+
+    }
+
 }

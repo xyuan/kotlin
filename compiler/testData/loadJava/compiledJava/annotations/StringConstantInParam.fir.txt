@@ -1,4 +1,14 @@
 public abstract interface StringConstantInParam : R|kotlin/Any| {
     public final static field HEL: R|ft<kotlin/String, kotlin/String?>!|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/StringConstantInParam.Anno|(String(hello)) public open class Class : R|kotlin/Any| {
+        public constructor(): R|test/StringConstantInParam.Class|
+
+    }
+
 }

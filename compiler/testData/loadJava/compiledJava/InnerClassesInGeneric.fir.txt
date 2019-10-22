@@ -1,4 +1,16 @@
 public open class InnerClassesInGeneric<P, Q> : R|kotlin/Any| {
     public constructor<P, Q>(): R|test/InnerClassesInGeneric<P, Q>|
 
+    public open inner class Inner : R|kotlin/Any| {
+        public constructor(): R|test/InnerClassesInGeneric.Inner|
+
+    }
+
+    public open inner class Inner2 : R|test/InnerClassesInGeneric.Inner<P, Q>| {
+        public open operator fun iterator():
+
+        public constructor(): R|test/InnerClassesInGeneric.Inner2|
+
+    }
+
 }

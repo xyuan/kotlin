@@ -106,7 +106,7 @@ private fun createScopesForNestedClasses(
             regularClass,
             lookupInterfaces = false, deep = true, useSiteSession = session,
             supertypeSupplier = supertypeComputationSession.supertypesSupplier
-        ).asReversed().mapTo(this) {
+        ).asReversed().mapNotNullTo(this) {
             nestedClassifierScope(it.lookupTag.classId, session)
         }
         addIfNotNull(regularClass.typeParametersScope())

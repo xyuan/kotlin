@@ -1,2 +1,14 @@
 public abstract interface InheritVarargPrimitive : R|kotlin/Any| {
+    public abstract interface Super : R|kotlin/Any| {
+        public abstract operator fun foo(vararg p: ):
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Sub : R|test/InheritVarargPrimitive.Super| {
+        public abstract operator fun foo(p: ):
+
+    }
+
 }

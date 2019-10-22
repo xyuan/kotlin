@@ -8,8 +8,9 @@ package org.jetbrains.kotlin.fir.scopes.impl
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.FirSessionComponent
 import org.jetbrains.kotlin.fir.declarations.FirClass
-import org.jetbrains.kotlin.fir.declarations.FirRegularClass
+import org.jetbrains.kotlin.fir.resolve.firSymbolProvider
 import org.jetbrains.kotlin.fir.resolve.memberScopeProvider
+import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 
@@ -53,8 +54,9 @@ fun nestedClassifierScope(klass: FirClass<*>): FirNestedClassifierScope {
         .nestedClassifierScope(klass)
 }
 
-fun nestedClassifierScope(classId: ClassId, session: FirSession): FirLazyNestedClassifierScope {
-    return FirLazyNestedClassifierScope(classId, session)
+fun nestedClassifierScope(classId: ClassId, session: FirSession): FirNestedClassifierScope? {
+    val classSymbol = session.firSymbolProvider.getClassLikeSymbolByFqName(classId) as? FirRegularClassSymbol ?: return null
+    return nestedClassifierScope(classSymbol.fir)
 }
 
 fun selfImportingScope(fqName: FqName, session: FirSession): FirSelfImportingScope {

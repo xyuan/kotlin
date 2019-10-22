@@ -1,2 +1,21 @@
 public abstract interface TwoSuperclassesReturnSameJavaType : R|kotlin/Any| {
+    public abstract interface Super1 : R|kotlin/Any| {
+        public abstract operator fun foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Super2 : R|kotlin/Any| {
+        @R|org/jetbrains/annotations/NotNull|() public abstract operator fun foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Sub : R|test/TwoSuperclassesReturnSameJavaType.Super1|, R|test/TwoSuperclassesReturnSameJavaType.Super2| {
+        public abstract operator fun foo():
+
+    }
+
 }

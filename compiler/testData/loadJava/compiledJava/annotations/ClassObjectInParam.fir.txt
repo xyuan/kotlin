@@ -1,4 +1,14 @@
 public open class ClassObjectInParam : R|kotlin/Any| {
     public constructor(): R|test/ClassObjectInParam|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/ClassObjectInParam.Anno|(<getClass>(<getClass>(R|test/ClassObjectInParam|))) public open class Nested : R|kotlin/Any| {
+        public constructor(): R|test/ClassObjectInParam.Nested|
+
+    }
+
 }

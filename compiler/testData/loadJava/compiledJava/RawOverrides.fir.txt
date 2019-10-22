@@ -1,4 +1,30 @@
 public open class RawOverrides : R|kotlin/Any| {
     public constructor(): R|test/RawOverrides|
 
+    public abstract interface A<T> : R|kotlin/Any| {
+        public abstract operator fun <E : R|kotlin/CharSequence?|> foo(x: , y: ):
+
+    }
+
+    public open inner class B : R|kotlin/Any|, R|test/RawOverrides.A<*>| {
+        @R|java/lang/Override|() public open operator fun foo(x: , y: ):
+
+        public constructor(): R|test/RawOverrides.B|
+
+    }
+
+    public open inner class C : R|kotlin/Any| {
+        public/*package*/ open operator fun <E : R|kotlin/CharSequence?|, F : R|E?|> bar(x: , y: ):
+
+        public constructor(): R|test/RawOverrides.C|
+
+    }
+
+    public open inner class D : R|test/RawOverrides.C| {
+        @R|java/lang/Override|() public open operator fun bar(x: , y: ):
+
+        public constructor(): R|test/RawOverrides.D|
+
+    }
+
 }

@@ -1,2 +1,27 @@
 public abstract interface Nested : R|kotlin/Any| {
+    public abstract interface Runnable : R|kotlin/Any| {
+        public abstract operator fun run():
+
+    }
+
+    public abstract interface Deeper1 : R|kotlin/Any| {
+        public abstract interface Runnable : R|kotlin/Any| {
+            public abstract operator fun run():
+
+            public abstract operator fun run2():
+
+        }
+
+    }
+
+    public abstract interface Deeper2 : R|kotlin/Any| {
+        public abstract interface Runnable : R|kotlin/Any| {
+            public abstract operator fun run():
+
+            public abstract operator fun toString():
+
+        }
+
+    }
+
 }

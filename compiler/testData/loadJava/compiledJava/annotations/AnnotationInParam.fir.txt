@@ -1,2 +1,49 @@
 public abstract interface AnnotationInParam : R|kotlin/Any| {
+    public abstract annotation class MyAnnotationWithParam : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    public abstract annotation class MyAnnotation : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/AnnotationInParam.MyAnnotationWithParam|(@R|test/AnnotationInParam.MyAnnotation|(String(test)) ) public open class A : R|kotlin/Any| {
+        public constructor(): R|test/AnnotationInParam.A|
+
+    }
+
+    public abstract annotation class MyAnnotation2 : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    public abstract annotation class MyAnnotationWithParam2 : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/AnnotationInParam.MyAnnotationWithParam2|(@R|test/AnnotationInParam.MyAnnotation2|(<implicitArrayOf>(String(test), String(test2))) ) public open class B : R|kotlin/Any| {
+        public constructor(): R|test/AnnotationInParam.B|
+
+    }
+
+    public abstract annotation class MyAnnotation3 : R|kotlin/Annotation| {
+        public abstract operator fun first():
+
+        public abstract operator fun second():
+
+    }
+
+    public abstract annotation class MyAnnotationWithParam3 : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/AnnotationInParam.MyAnnotationWithParam3|(@R|test/AnnotationInParam.MyAnnotation3|(String(f), String(s)) ) public open class C : R|kotlin/Any| {
+        public constructor(): R|test/AnnotationInParam.C|
+
+    }
+
 }

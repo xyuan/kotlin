@@ -1,2 +1,26 @@
 public abstract interface ReturnInnerSubclassOfSupersInner : R|kotlin/Any| {
+    public open class Super<A> : R|kotlin/Any| {
+        public constructor<A>(): R|test/ReturnInnerSubclassOfSupersInner.Super<A>|
+
+        public/*package*/ open inner class Inner : R|kotlin/Any| {
+            public/*package*/ open operator fun get():
+
+            public/*package*/ constructor(): R|test/ReturnInnerSubclassOfSupersInner.Super.Inner|
+
+        }
+
+    }
+
+    public open class Sub<B> : R|test/ReturnInnerSubclassOfSupersInner.Super<B>| {
+        public constructor<B>(): R|test/ReturnInnerSubclassOfSupersInner.Sub<B>|
+
+        public/*package*/ open inner class Inner : R|test/ReturnInnerSubclassOfSupersInner.Super.Inner<B>| {
+            public/*package*/ open operator fun get():
+
+            public/*package*/ constructor(): R|test/ReturnInnerSubclassOfSupersInner.Sub.Inner|
+
+        }
+
+    }
+
 }

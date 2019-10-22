@@ -3,4 +3,19 @@ public open class EnumArgumentWithCustomToString : R|kotlin/Any| {
 
     public constructor(): R|test/EnumArgumentWithCustomToString|
 
+    public open enum class E : R|kotlin/Enum<test/EnumArgumentWithCustomToString.E>| {
+        public final static field CAKE:
+
+    }
+
+    public abstract annotation class EnumAnno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    public abstract annotation class EnumArrayAnno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

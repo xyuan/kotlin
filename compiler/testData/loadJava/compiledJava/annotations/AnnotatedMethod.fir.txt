@@ -3,4 +3,9 @@ public open class AnnotatedMethod : R|kotlin/Any| {
 
     public constructor(): R|test/AnnotatedMethod|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

@@ -1,4 +1,33 @@
 public open class InnerOfGeneric : R|kotlin/Any| {
     public constructor(): R|test/InnerOfGeneric|
 
+    public open inner class S<E> : R|kotlin/Any| {
+        public open operator fun iterator():
+
+        public constructor<E>(): R|test/InnerOfGeneric.S<E>|
+
+    }
+
+    public abstract inner class A<K> : R|kotlin/Any| {
+        public constructor<K>(): R|test/InnerOfGeneric.A<K>|
+
+        public abstract inner class Inner : R|test/InnerOfGeneric.S<K>| {
+            public constructor(): R|test/InnerOfGeneric.A.Inner|
+
+        }
+
+    }
+
+    public open inner class B<L> : R|test/InnerOfGeneric.A<L>| {
+        public constructor<L>(): R|test/InnerOfGeneric.B<L>|
+
+        public open inner class SubInner : R|test/InnerOfGeneric.A.Inner<L>| {
+            @R|java/lang/Override|() public open operator fun iterator():
+
+            public constructor(): R|test/InnerOfGeneric.B.SubInner|
+
+        }
+
+    }
+
 }

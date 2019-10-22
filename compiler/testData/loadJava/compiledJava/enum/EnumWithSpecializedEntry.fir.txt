@@ -3,4 +3,9 @@ public open enum class EnumWithSpecializedEntry : R|kotlin/Enum<test/EnumWithSpe
 
     public final static field E2: R|ft<test/EnumWithSpecializedEntry, test/EnumWithSpecializedEntry?>!|
 
+    public/*package*/ open class Nested : R|kotlin/Any| {
+        public/*package*/ constructor(): R|test/EnumWithSpecializedEntry.Nested|
+
+    }
+
 }

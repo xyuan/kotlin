@@ -5,4 +5,9 @@ public final enum class EnumConstructorParameter : R|kotlin/Enum<test/EnumConstr
 
     private constructor(x: R|kotlin/Int|): R|test/EnumConstructorParameter|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

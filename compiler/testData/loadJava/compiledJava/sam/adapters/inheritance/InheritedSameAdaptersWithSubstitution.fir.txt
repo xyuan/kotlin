@@ -1,2 +1,18 @@
 public abstract interface InheritedSameAdaptersWithSubstitution : R|kotlin/Any| {
+    public abstract interface Super1 : R|kotlin/Any| {
+        public abstract operator fun foo(r: ):
+
+    }
+
+    public abstract interface Super2<T> : R|kotlin/Any| {
+        public abstract operator fun foo(r: ):
+
+    }
+
+    public abstract interface Super2Substituted : R|test/InheritedSameAdaptersWithSubstitution.Super2<kotlin/String>| {
+    }
+
+    public abstract interface Sub : R|test/InheritedSameAdaptersWithSubstitution.Super1|, R|test/InheritedSameAdaptersWithSubstitution.Super2Substituted| {
+    }
+
 }

@@ -3,4 +3,26 @@ public open class InnerClassTypeMultipleGeneric : R|kotlin/Any| {
 
     public constructor(): R|test/InnerClassTypeMultipleGeneric|
 
+    public open inner class BaseOuter<H1, H2> : R|kotlin/Any| {
+        public constructor<H1, H2>(): R|test/InnerClassTypeMultipleGeneric.BaseOuter<H1, H2>|
+
+        public abstract inner class BaseInner<H3, H4> : R|kotlin/Any| {
+            public constructor<H3, H4>(): R|test/InnerClassTypeMultipleGeneric.BaseOuter.BaseInner<H3, H4>|
+
+        }
+
+    }
+
+    public open inner class Outer<E1, E2> : R|test/InnerClassTypeMultipleGeneric.BaseOuter<kotlin/Int, E1>| {
+        public open operator fun bar():
+
+        public constructor<E1, E2>(): R|test/InnerClassTypeMultipleGeneric.Outer<E1, E2>|
+
+        public open inner class Inner<E3> : R|test/InnerClassTypeMultipleGeneric.BaseOuter.BaseInner<kotlin/Double, kotlin/String, E2, E3>| {
+            public constructor<E3>(): R|test/InnerClassTypeMultipleGeneric.Outer.Inner<E3>|
+
+        }
+
+    }
+
 }

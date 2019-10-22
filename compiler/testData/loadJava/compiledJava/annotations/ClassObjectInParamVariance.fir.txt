@@ -1,4 +1,23 @@
 public open class ClassObjectInParamVariance : R|kotlin/Any| {
     public constructor(): R|test/ClassObjectInParamVariance|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun arg1():
+
+        public abstract operator fun arg2():
+
+        public abstract operator fun arg3():
+
+        public abstract operator fun arg4():
+
+        public abstract operator fun arg5():
+
+        public abstract operator fun arg6():
+
+        public abstract operator fun arg7():
+
+        public abstract operator fun arg8():
+
+    }
+
 }

@@ -3,4 +3,9 @@ public/*package*/ open class AnnotatedTypeInFun : R|kotlin/Any| {
 
     public/*package*/ constructor(): R|test/AnnotatedTypeInFun|
 
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.TYPE_USE|()) public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

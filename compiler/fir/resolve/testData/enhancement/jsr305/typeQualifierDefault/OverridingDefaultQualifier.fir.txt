@@ -11,6 +11,36 @@
 
     public constructor(): R|A|
 
+    @R|NullableApi|() public open inner class B : R|kotlin/Any| {
+        public open field field:
+
+        public open operator fun foo(x: , @R|javax/annotation/Nonnull|() y: ):
+
+        @R|NonNullApi|() public open operator fun foobar(x: , @R|NullableApi|() y: ):
+
+        public open operator fun bar():
+
+        @R|javax/annotation/Nullable|() public open operator fun baz():
+
+        public constructor(): R|A.B|
+
+    }
+
+    @R|FieldsAreNullable|() public open inner class C : R|kotlin/Any| {
+        public open field field:
+
+        public open operator fun foo(x: , @R|javax/annotation/Nullable|() y: ):
+
+        @R|NullableApi|() public open operator fun foobar(x: , @R|javax/annotation/Nullable|() y: ):
+
+        public open operator fun bar():
+
+        @R|javax/annotation/Nullable|() public open operator fun baz():
+
+        public constructor(): R|A.C|
+
+    }
+
 }
 @R|java/lang/annotation/Retention|(R|java/lang/annotation/RetentionPolicy.RUNTIME|()) @R|java/lang/annotation/Documented|() @R|javax/annotation/CheckForNull|() @R|javax/annotation/meta/TypeQualifierDefault|(<implicitArrayOf>(R|java/lang/annotation/ElementType.FIELD|())) public abstract annotation class FieldsAreNullable : R|kotlin/Annotation| {
 }

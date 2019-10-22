@@ -1,2 +1,40 @@
 public abstract interface SubclassWithRawType : R|kotlin/Any| {
+    public abstract interface Super : R|kotlin/Any| {
+        public abstract operator fun simple1():
+
+        public abstract operator fun simple2():
+
+        public abstract operator fun simple3():
+
+        public abstract operator fun boundWildcard1():
+
+        public abstract operator fun boundWildcard2():
+
+        public abstract operator fun wildcard():
+
+        public abstract operator fun array1():
+
+        public abstract operator fun array2():
+
+    }
+
+    public abstract interface Sub : R|test/SubclassWithRawType.Super| {
+        public abstract operator fun simple1():
+
+        public abstract operator fun simple2():
+
+        public abstract operator fun simple3():
+
+        public abstract operator fun boundWildcard1():
+
+        public abstract operator fun boundWildcard2():
+
+        public abstract operator fun wildcard():
+
+        public abstract operator fun array1():
+
+        public abstract operator fun array2():
+
+    }
+
 }

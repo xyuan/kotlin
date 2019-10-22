@@ -1,2 +1,15 @@
 public abstract interface InheritedSameAdapters : R|kotlin/Any| {
+    public abstract interface Super1 : R|kotlin/Any| {
+        public abstract operator fun foo(r: ):
+
+    }
+
+    public abstract interface Super2 : R|kotlin/Any| {
+        public abstract operator fun foo(r: ):
+
+    }
+
+    public abstract interface Sub : R|test/InheritedSameAdapters.Super1|, R|test/InheritedSameAdapters.Super2| {
+    }
+
 }

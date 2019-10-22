@@ -13,6 +13,11 @@ public/*package*/ open class A : R|kotlin/Any| {
 public final enum class Mixed : R|kotlin/Enum<Mixed>| {
     public final static field NOT_ENTRY_EITHER: R|ft<Mixed, Mixed?>!|
 
+    public final class NOT_ENTRY_EITHER : R|kotlin/Any| {
+        public constructor(): R|Mixed.NOT_ENTRY_EITHER|
+
+    }
+
 }
 public final enum class Signs : R|kotlin/Enum<Signs>| {
     public final static field HELLO: R|ft<Signs, Signs?>!|
@@ -20,5 +25,10 @@ public final enum class Signs : R|kotlin/Enum<Signs>| {
     public final static field WORLD: R|ft<Signs, Signs?>!|
 
     public final static field X: R|ft<Signs, Signs?>!|
+
+    public final class NOT_ENTRY_EITHER : R|kotlin/Any| {
+        public constructor(): R|Signs.NOT_ENTRY_EITHER|
+
+    }
 
 }

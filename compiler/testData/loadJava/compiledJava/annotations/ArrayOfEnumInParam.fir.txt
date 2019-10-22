@@ -1,2 +1,7 @@
 public abstract interface ArrayOfEnumInParam : R|kotlin/Any| {
+    @R|java/lang/annotation/Target|(<implicitArrayOf>(R|java/lang/annotation/ElementType.FIELD|(), R|java/lang/annotation/ElementType.CONSTRUCTOR|())) public abstract annotation class targetAnnotation : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

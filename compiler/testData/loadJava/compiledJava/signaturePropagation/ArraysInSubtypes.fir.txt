@@ -1,2 +1,20 @@
 public abstract interface ArraysInSubtypes : R|kotlin/Any| {
+    public abstract interface Super : R|kotlin/Any| {
+        public abstract operator fun array():
+
+        public abstract operator fun listOfArray():
+
+        public abstract operator fun objArray():
+
+    }
+
+    public abstract interface Sub<T> : R|test/ArraysInSubtypes.Super| {
+        public abstract operator fun array():
+
+        public abstract operator fun listOfArray():
+
+        public abstract operator fun objArray():
+
+    }
+
 }

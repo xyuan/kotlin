@@ -1,4 +1,23 @@
 public final class FakeStaticOverrides : R|kotlin/Any| {
     public constructor(): R|test/FakeStaticOverrides|
 
+    public open class A : R|kotlin/Any| {
+        public open static operator fun foo(x: ):
+
+        public constructor(): R|test/FakeStaticOverrides.A|
+
+    }
+
+    public open class B : R|test/FakeStaticOverrides.A| {
+        public open static operator fun foo(x: ):
+
+        public constructor(): R|test/FakeStaticOverrides.B|
+
+    }
+
+    public open class C : R|test/FakeStaticOverrides.B| {
+        public constructor(): R|test/FakeStaticOverrides.C|
+
+    }
+
 }

@@ -3,4 +3,9 @@ public open class PrivateSamAdapter : R|kotlin/Any| {
 
     public constructor(): R|test/PrivateSamAdapter|
 
+    private abstract interface SamInterface : R|kotlin/Any| {
+        public abstract operator fun foo():
+
+    }
+
 }

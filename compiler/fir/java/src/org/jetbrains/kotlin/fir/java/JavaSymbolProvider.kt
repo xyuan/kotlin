@@ -155,8 +155,17 @@ class JavaSymbolProvider(
 
     override fun getClassLikeSymbolByFqName(classId: ClassId): FirRegularClassSymbol? = getFirJavaClass(classId)
 
-    fun getFirJavaClass(classId: ClassId, content: KotlinClassFinder.Result.ClassFileContent? = null): FirRegularClassSymbol? {
+    internal fun getFirJavaClass(
+        classId: ClassId,
+        content: KotlinClassFinder.Result.ClassFileContent? = null,
+        additionalStack: JavaTypeParameterStack? = null
+    ): FirRegularClassSymbol? {
         if (!hasTopLevelClassOf(classId)) return null
+        val parentFqName = classId.relativeClassName.parent()
+        val isTopLevel = parentFqName.isRoot
+        if (!isTopLevel && additionalStack == null) {
+            getFirJavaClass(classId.outerClassId!!)
+        }
         return classCache.lookupCacheOrCalculateWithPostCompute(classId, {
             val foundClass = findClass(classId, content)
             if (foundClass == null || foundClass.annotations.any { it.classId?.asSingleFqName() == JvmAnnotationNames.METADATA_FQ_NAME }) {
@@ -167,14 +176,9 @@ class JavaSymbolProvider(
         }) { firSymbol, foundClass ->
             foundClass?.let { javaClass ->
                 val javaTypeParameterStack = JavaTypeParameterStack()
-                val parentFqName = classId.relativeClassName.parent()
-                val isTopLevel = parentFqName.isRoot
                 if (!isTopLevel) {
-                    val parentId = ClassId(classId.packageFqName, parentFqName, false)
-                    val parentClassSymbol = getClassLikeSymbolByFqName(parentId)
-                    val parentClass = parentClassSymbol?.fir
-                    if (parentClass is FirJavaClass) {
-                        javaTypeParameterStack.addStack(parentClass.javaTypeParameterStack)
+                    if (additionalStack != null) {
+                        javaTypeParameterStack.addStack(additionalStack)
                     }
                 }
                 FirJavaClass(
@@ -277,6 +281,11 @@ class JavaSymbolProvider(
                                 )
                             }
                         }
+                    }
+                    for (innerClassName in javaClass.innerClassNames) {
+                        val nestedClassId = classId.createNestedClassId(innerClassName)
+                        val nestedClassSymbol = getFirJavaClass(nestedClassId, additionalStack = javaTypeParameterStack) ?: continue
+                        declarations += nestedClassSymbol.fir
                     }
                 }
             }

@@ -37,7 +37,7 @@ abstract class FirAbstractTreeTransformerWithSuperTypes(
         return withScopeCleanup {
             // ? Is it Ok to use original file session here ?
             lookupSuperTypes(regularClass, lookupInterfaces = false, deep = true, useSiteSession = session)
-                .asReversed().mapTo(towerScope.scopes) {
+                .asReversed().mapNotNullTo(towerScope.scopes) {
                     nestedClassifierScope(it.lookupTag.classId, session)
                 }
             regularClass.addTypeParametersScope()

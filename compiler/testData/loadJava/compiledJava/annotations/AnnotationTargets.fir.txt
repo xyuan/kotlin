@@ -1,4 +1,34 @@
 public open class AnnotationTargets : R|kotlin/Any| {
     public constructor(): R|test/AnnotationTargets|
 
+    public abstract annotation class base : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.ANNOTATION_TYPE|()) public abstract annotation class annotation : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.CONSTRUCTOR|()) public abstract annotation class constructor : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.FIELD|()) public abstract annotation class field : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.LOCAL_VARIABLE|()) public abstract annotation class local : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.METHOD|()) public abstract annotation class method : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.PACKAGE|()) public abstract annotation class packag : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.PARAMETER|()) public abstract annotation class parameter : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(R|java/lang/annotation/ElementType.TYPE|()) public abstract annotation class type : R|kotlin/Annotation| {
+    }
+
+    @R|java/lang/annotation/Target|(<implicitArrayOf>(R|java/lang/annotation/ElementType.METHOD|(), R|java/lang/annotation/ElementType.CONSTRUCTOR|(), R|java/lang/annotation/ElementType.FIELD|())) public abstract annotation class multiple : R|kotlin/Annotation| {
+    }
+
 }

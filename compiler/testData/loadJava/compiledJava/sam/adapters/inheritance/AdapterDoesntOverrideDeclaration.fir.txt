@@ -1,2 +1,12 @@
 public abstract interface AdapterDoesntOverrideDeclaration : R|kotlin/Any| {
+    public abstract interface Super : R|kotlin/Any| {
+        public abstract operator fun foo(r: ):
+
+    }
+
+    public abstract interface Sub : R|test/AdapterDoesntOverrideDeclaration.Super| {
+        public abstract operator fun foo(r: ):
+
+    }
+
 }

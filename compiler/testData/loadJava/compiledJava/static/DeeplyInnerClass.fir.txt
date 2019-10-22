@@ -1,4 +1,25 @@
 public open class DeeplyInnerClass : R|kotlin/Any| {
     public constructor(): R|test/DeeplyInnerClass|
 
+    public/*package*/ open inner class A : R|kotlin/Any| {
+        public/*package*/ open operator fun a():
+
+        public/*package*/ constructor(): R|test/DeeplyInnerClass.A|
+
+        public/*package*/ open inner class B : R|kotlin/Any| {
+            public/*package*/ open operator fun b():
+
+            public/*package*/ constructor(): R|test/DeeplyInnerClass.A.B|
+
+            public/*package*/ open inner class C : R|kotlin/Any| {
+                public/*package*/ open operator fun c():
+
+                public/*package*/ constructor(): R|test/DeeplyInnerClass.A.B.C|
+
+            }
+
+        }
+
+    }
+
 }

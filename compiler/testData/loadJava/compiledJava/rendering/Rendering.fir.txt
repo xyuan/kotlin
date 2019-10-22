@@ -1,4 +1,81 @@
 public open class Rendering : R|kotlin/Any| {
     public constructor(): R|test/Rendering|
 
+    public/*package*/ open inner class A_Plain : R|kotlin/Any| {
+        public/*package*/ constructor(): R|test/Rendering.A_Plain|
+
+    }
+
+    public/*package*/ open inner class B_Super : R|kotlin/Any| {
+        public/*package*/ constructor(): R|test/Rendering.B_Super|
+
+    }
+
+    public/*package*/ open inner class C_Sub : R|test/Rendering.B_Super| {
+        public/*package*/ constructor(): R|test/Rendering.C_Sub|
+
+    }
+
+    public/*package*/ open inner class D_SuperG<T> : R|kotlin/Any| {
+        public/*package*/ constructor<T>(): R|test/Rendering.D_SuperG<T>|
+
+    }
+
+    public/*package*/ open inner class E_SubG : R|test/Rendering.D_SuperG<kotlin/String>| {
+        public/*package*/ constructor(): R|test/Rendering.E_SubG|
+
+    }
+
+    public/*package*/ abstract interface F_Array : R|kotlin/Any| {
+        public abstract operator fun foo1(strings: ):
+
+        public abstract operator fun foo2(strings: ):
+
+        public abstract operator fun foo3(vararg args: ):
+
+        public abstract operator fun foo4(vararg args: ):
+
+        public abstract operator fun foo5(vararg args: ):
+
+    }
+
+    public/*package*/ abstract interface G_Collections : R|kotlin/Any| {
+        public abstract operator fun foo1(x: ):
+
+        public abstract operator fun foo2(x: ):
+
+        public abstract operator fun foo3(x: ):
+
+        public abstract operator fun foo4(x: ):
+
+        public abstract operator fun foo5(x: ):
+
+        public abstract operator fun foo6(x: ):
+
+        public abstract operator fun foo7(x: ):
+
+    }
+
+    public/*package*/ abstract interface H_Raw : R|kotlin/Any| {
+        public abstract operator fun foo1(x: ):
+
+        public abstract operator fun foo2(x: ):
+
+    }
+
+    public/*package*/ abstract interface I_Wildcard : R|kotlin/Any| {
+        public abstract operator fun foo1(x: ):
+
+        public abstract operator fun foo2(x: ):
+
+        public abstract operator fun foo3(x: ):
+
+        public abstract operator fun foo4(x: ):
+
+        public abstract operator fun foo5(x: ):
+
+        public abstract operator fun foo6(x: ):
+
+    }
+
 }

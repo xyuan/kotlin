@@ -3,4 +3,14 @@ public open class NestedEnumArgument : R|kotlin/Any| {
 
     public constructor(): R|test/NestedEnumArgument|
 
+    public final enum class E : R|kotlin/Enum<test/NestedEnumArgument.E>| {
+        public final static field FIRST:
+
+    }
+
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

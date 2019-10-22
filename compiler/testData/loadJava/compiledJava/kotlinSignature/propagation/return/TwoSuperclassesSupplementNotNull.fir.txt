@@ -1,2 +1,21 @@
 public abstract interface TwoSuperclassesSupplementNotNull : R|kotlin/Any| {
+    public abstract interface Super1 : R|kotlin/Any| {
+        public abstract operator fun foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Super2 : R|kotlin/Any| {
+        public abstract operator fun foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public abstract interface Sub : R|test/TwoSuperclassesSupplementNotNull.Super1|, R|test/TwoSuperclassesSupplementNotNull.Super2| {
+        public abstract operator fun foo():
+
+    }
+
 }

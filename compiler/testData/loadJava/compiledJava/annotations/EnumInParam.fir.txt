@@ -1,2 +1,12 @@
 public abstract interface EnumInParam : R|kotlin/Any| {
+    public abstract annotation class MyRetention : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/EnumInParam.MyRetention|(R|java/lang/annotation/RetentionPolicy.RUNTIME|()) public abstract annotation class RetentionAnnotation : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

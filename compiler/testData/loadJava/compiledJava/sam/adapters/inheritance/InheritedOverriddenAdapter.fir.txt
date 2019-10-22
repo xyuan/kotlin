@@ -1,2 +1,16 @@
 public abstract interface InheritedOverriddenAdapter : R|kotlin/Any| {
+    public open class Super : R|kotlin/Any| {
+        public open operator fun foo(r: ):
+
+        public constructor(): R|test/InheritedOverriddenAdapter.Super|
+
+    }
+
+    public open class Sub : R|test/InheritedOverriddenAdapter.Super| {
+        public open operator fun foo(r: ):
+
+        public constructor(): R|test/InheritedOverriddenAdapter.Sub|
+
+    }
+
 }

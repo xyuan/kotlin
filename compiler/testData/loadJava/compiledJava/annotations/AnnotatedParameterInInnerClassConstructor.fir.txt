@@ -1,4 +1,19 @@
 public/*package*/ open class AnnotatedParameterInInnerClassConstructor : R|kotlin/Any| {
     public/*package*/ constructor(): R|test/AnnotatedParameterInInnerClassConstructor|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    public/*package*/ open inner class Inner : R|kotlin/Any| {
+        public/*package*/ constructor(@R|test/AnnotatedParameterInInnerClassConstructor.Anno|(String(a)) a: , @R|test/AnnotatedParameterInInnerClassConstructor.Anno|(String(b)) b: ): R|test/AnnotatedParameterInInnerClassConstructor.Inner|
+
+    }
+
+    public/*package*/ open inner class InnerGeneric<T> : R|kotlin/Any| {
+        public/*package*/ constructor<T>(@R|test/AnnotatedParameterInInnerClassConstructor.Anno|(String(a)) a: , @R|test/AnnotatedParameterInInnerClassConstructor.Anno|(String(b)) b: ): R|test/AnnotatedParameterInInnerClassConstructor.InnerGeneric<T>|
+
+    }
+
 }

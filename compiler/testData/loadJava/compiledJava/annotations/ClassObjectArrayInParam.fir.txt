@@ -1,4 +1,14 @@
 public open class ClassObjectArrayInParam : R|kotlin/Any| {
     public constructor(): R|test/ClassObjectArrayInParam|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/ClassObjectArrayInParam.Anno|(<implicitArrayOf>(<getClass>(<getClass>(R|test/ClassObjectArrayInParam|)), <getClass>(<getClass>(R|test/ClassObjectArrayInParam.Nested|)), <getClass>(<getClass>(R|kotlin/String|)), <getClass>(<getClass>(R|kotlin/collections/MutableList<*>|)), <getClass>(<getClass>(R|class error: Unexpected JavaType: JavaArrayTypeImpl: PsiType:String[][]|)), <getClass>(<getClass>(R|class error: Unexpected JavaType: JavaArrayTypeImpl: PsiType:int[][]|)), <getClass>(<getClass>(R|class error: Unexpected JavaType: JavaPrimitiveTypeImpl: PsiType:void|)))) public open class Nested : R|kotlin/Any| {
+        public constructor(): R|test/ClassObjectArrayInParam.Nested|
+
+    }
+
 }

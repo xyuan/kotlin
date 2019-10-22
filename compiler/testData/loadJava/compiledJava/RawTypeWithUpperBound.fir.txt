@@ -1,2 +1,12 @@
 public abstract interface RawTypeWithUpperBound : R|kotlin/Any| {
+    public abstract interface Foo<T : R|kotlin/CharSequence?|> : R|kotlin/Any| {
+    }
+
+    public abstract interface Bar : R|kotlin/Any| {
+        public abstract operator fun f(f: ):
+
+        public abstract operator fun g(f: ):
+
+    }
+
 }

@@ -3,4 +3,20 @@ public abstract interface TwoSuperclassesInconsistentGenericTypes : R|kotlin/Any
 
     public abstract operator fun dummy(): R|kotlin/Unit|
 
+    public abstract interface Other : R|kotlin/Any| {
+        public abstract operator fun foo():
+
+        public abstract operator fun dummy():
+
+    }
+
+    public open class Sub : R|kotlin/Any|, R|test/TwoSuperclassesInconsistentGenericTypes|, R|test/TwoSuperclassesInconsistentGenericTypes.Other| {
+        public open operator fun foo():
+
+        public open operator fun dummy():
+
+        public constructor(): R|test/TwoSuperclassesInconsistentGenericTypes.Sub|
+
+    }
+
 }

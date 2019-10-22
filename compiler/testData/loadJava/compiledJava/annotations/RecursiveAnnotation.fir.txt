@@ -1,2 +1,12 @@
 public abstract interface RecursiveAnnotation : R|kotlin/Any| {
+    @R|test/RecursiveAnnotation.B|(@R|test/RecursiveAnnotation.A|(String(test)) ) public abstract annotation class A : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    @R|test/RecursiveAnnotation.B|(@R|test/RecursiveAnnotation.A|(String(test)) ) public abstract annotation class B : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
 }

@@ -5,4 +5,12 @@ public final enum class AnnotatedEnumEntry : R|kotlin/Enum<test/AnnotatedEnumEnt
 
     public final static field E3: R|ft<test/AnnotatedEnumEntry, test/AnnotatedEnumEntry?>!|
 
+    public abstract annotation class Anno : R|kotlin/Annotation| {
+        public abstract operator fun value():
+
+    }
+
+    public abstract annotation class Anno2 : R|kotlin/Annotation| {
+    }
+
 }
