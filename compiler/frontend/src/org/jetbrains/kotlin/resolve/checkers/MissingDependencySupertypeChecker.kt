@@ -21,7 +21,7 @@ import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
 object MissingDependencySupertypeChecker {
-    val ForDeclarations = object : DeclarationChecker {
+    object ForDeclarations : DeclarationChecker {
         override fun check(declaration: KtDeclaration, descriptor: DeclarationDescriptor, context: DeclarationCheckerContext) {
             val trace = context.trace
             val module = context.moduleDescriptor
@@ -32,18 +32,16 @@ object MissingDependencySupertypeChecker {
 
             if (declaration is KtTypeParameterListOwner) {
                 for (ktTypeParameter in declaration.typeParameters) {
-                    trace.bindingContext.get(BindingContext.TYPE_PARAMETER, ktTypeParameter)
-                        ?.let { typeParameterDescriptor ->
-                            for (upperBound in typeParameterDescriptor.upperBounds) {
-                                checkSupertypes(upperBound, ktTypeParameter, trace, module)
-                            }
-                        }
+                    val typeParameterDescriptor = trace.bindingContext.get(BindingContext.TYPE_PARAMETER, ktTypeParameter) ?: continue
+                    for (upperBound in typeParameterDescriptor.upperBounds) {
+                        checkSupertypes(upperBound, ktTypeParameter, trace, module)
+                    }
                 }
             }
         }
     }
 
-    val ForCalls = object : CallChecker {
+    object ForCalls : CallChecker {
         override fun check(resolvedCall: ResolvedCall<*>, reportOn: PsiElement, context: CallCheckerContext) {
             val descriptor = resolvedCall.resultingDescriptor
             if (descriptor is ConstructorDescriptor)
@@ -60,12 +58,7 @@ object MissingDependencySupertypeChecker {
         private fun checkHierarchy(declaration: DeclarationDescriptor?, reportOn: PsiElement, context: CallCheckerContext) {
             if (declaration !is ClassifierDescriptor) return
 
-            val classifierType = when (declaration) {
-                is TypeAliasDescriptor -> declaration.expandedType
-                else -> declaration.defaultType
-            }
-
-            checkSupertypes(classifierType, reportOn, context.trace, context.moduleDescriptor)
+            checkSupertypes(declaration.defaultType, reportOn, context.trace, context.moduleDescriptor)
         }
     }
 
@@ -75,13 +68,16 @@ object MissingDependencySupertypeChecker {
         trace: BindingTrace,
         moduleDescriptor: ModuleDescriptor
     ) {
-        val classifierDescriptor = classifierType.constructor.declarationDescriptor
-            ?: return
+        val classifierDescriptor = classifierType.constructor.declarationDescriptor ?: return
 
         for (supertype in classifierType.supertypes()) {
             val supertypeDeclaration = supertype.constructor.declarationDescriptor
 
-            // TODO: expects are not checked, because findClassAcrossModuleDependencies does not work with actualization via type alias
+            /*
+            * TODO: expects are not checked, because findClassAcrossModuleDependencies does not work with actualization via type alias
+            * Type parameters are skipped here, bounds of type parameters are checked in declaration checker separately
+            * Local declarations are ignored for optimization
+            */
             if (supertypeDeclaration !is ClassDescriptor || supertypeDeclaration.isExpect) continue
             if (supertypeDeclaration.visibility == Visibilities.LOCAL) continue
 
