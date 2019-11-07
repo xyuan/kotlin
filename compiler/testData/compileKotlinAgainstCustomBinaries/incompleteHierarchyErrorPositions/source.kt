@@ -11,7 +11,7 @@ fun Sub.extension() {}
 fun test() {
     Sub().unresolved()
     SubSub().unresolved()
-    val obj = object MyObject : Sub() {}
+    val obj = object : Sub() {}
     withCallRefArg(Sub::resolved)
     Sub().resolved()
     Sub().extension()
