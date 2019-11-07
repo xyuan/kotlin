@@ -1,9 +1,6 @@
 error: supertypes of the following classes cannot be resolved. Please make sure you have the required dependencies in the classpath:
     class test.Sub, unresolved supertypes: test.Super
 
-compiler/testData/compileKotlinAgainstCustomBinaries/incompleteHierarchyErrorPositions/source.kt:14:22: error: an object expression cannot bind a name
-    val obj = object MyObject : Sub() {}
-                     ^
 compiler/testData/compileKotlinAgainstCustomBinaries/incompleteHierarchyErrorPositions/source.kt:3:1: error: cannot access 'test.Super' which is a supertype of 'SubSub'. Check your module classpath for missing or conflicting dependencies
 class SubSub : Sub()
 ^
@@ -26,7 +23,7 @@ compiler/testData/compileKotlinAgainstCustomBinaries/incompleteHierarchyErrorPos
     SubSub().unresolved()
              ^
 compiler/testData/compileKotlinAgainstCustomBinaries/incompleteHierarchyErrorPositions/source.kt:14:15: error: cannot access 'test.Super' which is a supertype of 'test.<no name provided>'. Check your module classpath for missing or conflicting dependencies
-    val obj = object MyObject : Sub() {}
+    val obj = object : Sub() {}
               ^
 compiler/testData/compileKotlinAgainstCustomBinaries/incompleteHierarchyErrorPositions/source.kt:15:25: error: cannot access 'test.Super' which is a supertype of 'test.Sub'. Check your module classpath for missing or conflicting dependencies
     withCallRefArg(Sub::resolved)

@@ -219,7 +219,7 @@ class CompileKotlinAgainstCustomBinariesTest : AbstractKotlinCompilerIntegration
         doTestBrokenLibrary("library", "test/Super.class")
     }
 
-    fun testIncompleteHierarchyOnlyConstructorCalls() {
+    fun testIncompleteHierarchyOfEnclosingClass() {
         doTestBrokenLibrary("library", "test/Super.class")
     }
 
