@@ -44,12 +44,15 @@ object MissingDependencySupertypeChecker {
     object ForCalls : CallChecker {
         override fun check(resolvedCall: ResolvedCall<*>, reportOn: PsiElement, context: CallCheckerContext) {
             val descriptor = resolvedCall.resultingDescriptor
-            if (descriptor is ConstructorDescriptor)
-                return // constructor call doesn't trigger supertypes resolution
 
-            checkHierarchy(descriptor.containingDeclaration, reportOn, context)
+            // Constructor call leads to resolution of supertypes of enclosing class if it's an inner class constructor
             checkHierarchy(descriptor.dispatchReceiverParameter?.declaration, reportOn, context)
-            checkHierarchy(descriptor.extensionReceiverParameter?.declaration, reportOn, context)
+            // The constructed class' own supertypes are not resolved after constructor call,
+            // so its containing declaration should not be checked.
+            if (descriptor !is ConstructorDescriptor) {
+                checkHierarchy(descriptor.containingDeclaration, reportOn, context)
+                checkHierarchy(descriptor.extensionReceiverParameter?.declaration, reportOn, context)
+            }
         }
 
         private val ReceiverParameterDescriptor.declaration
