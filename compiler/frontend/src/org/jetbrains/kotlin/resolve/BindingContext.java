@@ -31,6 +31,7 @@ import org.jetbrains.kotlin.resolve.calls.smartcasts.DataFlowValue;
 import org.jetbrains.kotlin.resolve.calls.smartcasts.ExplicitSmartCasts;
 import org.jetbrains.kotlin.resolve.calls.smartcasts.ImplicitSmartCasts;
 import org.jetbrains.kotlin.resolve.calls.tower.KotlinResolutionCallbacksImpl;
+import org.jetbrains.kotlin.resolve.checkers.MissingDependencySupertypeChecker;
 import org.jetbrains.kotlin.resolve.checkers.PrimitiveNumericComparisonInfo;
 import org.jetbrains.kotlin.resolve.constants.CompileTimeConstant;
 import org.jetbrains.kotlin.resolve.diagnostics.Diagnostics;
@@ -269,6 +270,7 @@ public interface BindingContext {
     WritableSlice<KtFunction, KotlinResolutionCallbacksImpl.LambdaInfo> NEW_INFERENCE_LAMBDA_INFO = new BasicWritableSlice<>(DO_NOTHING);
 
     WritableSlice<KtExpression, PrimitiveNumericComparisonInfo> PRIMITIVE_NUMERIC_COMPARISON_INFO = Slices.createSimpleSlice();
+    WritableSlice<MissingDependencySupertypeChecker.MISSING_HIERARCHY_FOUND, Boolean> MISSING_HIERARCHY_FOUND = Slices.createSimpleSetSlice();
 
     WritableSlice<KtExpression, Ref<VariableDescriptor>> NEW_INFERENCE_CATCH_EXCEPTION_PARAMETER = Slices.createSimpleSlice();
 

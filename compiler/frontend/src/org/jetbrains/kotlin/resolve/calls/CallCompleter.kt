@@ -106,6 +106,11 @@ class CallCompleter(
     }
 
     private fun checkMissingSupertypes(context: BasicCallResolutionContext, moduleDescriptor: ModuleDescriptor) {
+        val missingHierarchyFound =
+            context.trace.bindingContext[BindingContext.MISSING_HIERARCHY_FOUND, MissingDependencySupertypeChecker.MISSING_HIERARCHY_FOUND]
+        if (missingHierarchyFound != true)
+            return
+
         val call = context.call
         val explicitReceiver = call.explicitReceiver.safeAs<ReceiverValue>()
             ?: return

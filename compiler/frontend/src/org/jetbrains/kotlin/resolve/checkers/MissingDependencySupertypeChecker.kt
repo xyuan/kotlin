@@ -98,4 +98,6 @@ object MissingDependencySupertypeChecker {
             }
         }
     }
+
+    object MISSING_HIERARCHY_FOUND
 }

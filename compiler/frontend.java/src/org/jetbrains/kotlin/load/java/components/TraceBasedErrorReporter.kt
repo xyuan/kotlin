@@ -18,8 +18,10 @@ package org.jetbrains.kotlin.load.java.components
 
 import org.jetbrains.kotlin.descriptors.CallableMemberDescriptor
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
+import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.BindingTrace
 import org.jetbrains.kotlin.resolve.OverrideResolver
+import org.jetbrains.kotlin.resolve.checkers.MissingDependencySupertypeChecker
 import org.jetbrains.kotlin.serialization.deserialization.ErrorReporter
 import org.jetbrains.kotlin.util.slicedMap.BasicWritableSlice
 import org.jetbrains.kotlin.util.slicedMap.Slices
@@ -36,6 +38,7 @@ class TraceBasedErrorReporter(private val trace: BindingTrace) : ErrorReporter {
     }
 
     override fun reportIncompleteHierarchy(descriptor: ClassDescriptor, unresolvedSuperClasses: List<String>) {
+        trace.record(BindingContext.MISSING_HIERARCHY_FOUND, MissingDependencySupertypeChecker.MISSING_HIERARCHY_FOUND, true)
         trace.record(INCOMPLETE_HIERARCHY, descriptor, unresolvedSuperClasses)
     }
 
