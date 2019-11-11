@@ -122,9 +122,6 @@ class ResolvedAtomCompleter(
         moduleDescriptor: ModuleDescriptor,
         trace: BindingTrace
     ) {
-        if (trace.bindingContext.getSliceContents(BindingContext.INCOMPLETE_HIERARCHY).isEmpty())
-            return
-
         val receiverValue = resolvedCall.dispatchReceiver ?: resolvedCall.extensionReceiver
         receiverValue?.type?.let { receiverType ->
             MissingDependencySupertypeChecker.checkSupertypes(
