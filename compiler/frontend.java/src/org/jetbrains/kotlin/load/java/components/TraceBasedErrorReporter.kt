@@ -38,7 +38,6 @@ class TraceBasedErrorReporter(private val trace: BindingTrace) : ErrorReporter {
     }
 
     override fun reportIncompleteHierarchy(descriptor: ClassDescriptor, unresolvedSuperClasses: List<String>) {
-        trace.record(BindingContext.MISSING_HIERARCHY_FOUND, MissingDependencySupertypeChecker.MISSING_HIERARCHY_FOUND, true)
         trace.record(INCOMPLETE_HIERARCHY, descriptor, unresolvedSuperClasses)
     }
 

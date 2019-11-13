@@ -66,6 +66,7 @@ public class ExpressionTypingComponents {
     /*package*/ DataFlowValueFactory dataFlowValueFactory;
     /*package*/ NewKotlinTypeChecker kotlinTypeChecker;
     /*package*/ TypeResolutionInterceptor typeResolutionInterceptor;
+    /*package*/ SupertypesChecker supertypesChecker;
 
 
     @Inject
@@ -251,5 +252,10 @@ public class ExpressionTypingComponents {
     @Inject
     public void setTypeResolutionInterceptor(@NotNull TypeResolutionInterceptor typeResolutionInterceptor) {
         this.typeResolutionInterceptor = typeResolutionInterceptor;
+    }
+
+    @Inject
+    public void setSupertypesChecker(@NotNull SupertypesChecker supertypesChecker) {
+        this.supertypesChecker = supertypesChecker;
     }
 }

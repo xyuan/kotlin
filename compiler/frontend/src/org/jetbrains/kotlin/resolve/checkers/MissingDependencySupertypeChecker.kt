@@ -12,29 +12,28 @@ import org.jetbrains.kotlin.psi.KtDeclaration
 import org.jetbrains.kotlin.psi.KtTypeParameterListOwner
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.BindingTrace
+import org.jetbrains.kotlin.resolve.SupertypesChecker
 import org.jetbrains.kotlin.resolve.calls.checkers.CallChecker
 import org.jetbrains.kotlin.resolve.calls.checkers.CallCheckerContext
 import org.jetbrains.kotlin.resolve.calls.model.ResolvedCall
-import org.jetbrains.kotlin.resolve.descriptorUtil.classId
 import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameSafe
 import org.jetbrains.kotlin.types.KotlinType
-import org.jetbrains.kotlin.types.typeUtil.supertypes
 
 object MissingDependencySupertypeChecker {
     object ForDeclarations : DeclarationChecker {
         override fun check(declaration: KtDeclaration, descriptor: DeclarationDescriptor, context: DeclarationCheckerContext) {
             val trace = context.trace
-            val module = context.moduleDescriptor
+            val supertypesChecker = context.supertypesChecker
 
             if (descriptor is ClassDescriptor) {
-                checkSupertypes(descriptor.defaultType, declaration, trace, module)
+                checkSupertypes(descriptor.defaultType, declaration, trace, supertypesChecker)
             }
 
             if (declaration is KtTypeParameterListOwner) {
                 for (ktTypeParameter in declaration.typeParameters) {
                     val typeParameterDescriptor = trace.bindingContext.get(BindingContext.TYPE_PARAMETER, ktTypeParameter) ?: continue
                     for (upperBound in typeParameterDescriptor.upperBounds) {
-                        checkSupertypes(upperBound, ktTypeParameter, trace, module)
+                        checkSupertypes(upperBound, ktTypeParameter, trace, supertypesChecker)
                     }
                 }
             }
@@ -61,7 +60,7 @@ object MissingDependencySupertypeChecker {
         private fun checkHierarchy(declaration: DeclarationDescriptor?, reportOn: PsiElement, context: CallCheckerContext) {
             if (declaration !is ClassifierDescriptor) return
 
-            checkSupertypes(declaration.defaultType, reportOn, context.trace, context.moduleDescriptor)
+            checkSupertypes(declaration.defaultType, reportOn, context.trace, context.supertypesChecker)
         }
     }
 
@@ -69,35 +68,18 @@ object MissingDependencySupertypeChecker {
         classifierType: KotlinType,
         reportOn: PsiElement,
         trace: BindingTrace,
-        moduleDescriptor: ModuleDescriptor
+        supertypesChecker: SupertypesChecker
     ) {
-        val classifierDescriptor = classifierType.constructor.declarationDescriptor ?: return
-
-        for (supertype in classifierType.supertypes()) {
-            val supertypeDeclaration = supertype.constructor.declarationDescriptor
-
-            /*
-            * TODO: expects are not checked, because findClassAcrossModuleDependencies does not work with actualization via type alias
-            * Type parameters are skipped here, bounds of type parameters are checked in declaration checker separately
-            * Local declarations are ignored for optimization
-            */
-            if (supertypeDeclaration !is ClassDescriptor || supertypeDeclaration.isExpect) continue
-            if (supertypeDeclaration.visibility == Visibilities.LOCAL) continue
-
-            val superTypeClassId = supertypeDeclaration.classId ?: continue
-            val dependency = moduleDescriptor.findClassAcrossModuleDependencies(superTypeClassId)
-
-            if (dependency == null || dependency is NotFoundClasses.MockClassDescriptor) {
-                trace.report(
-                    Errors.MISSING_DEPENDENCY_SUPERCLASS.on(
-                        reportOn,
-                        supertypeDeclaration.fqNameSafe,
-                        classifierDescriptor.fqNameSafe
-                    )
+        for (missingClassifier in supertypesChecker.getMissingSupertypes(classifierType)) {
+            val classifierDescriptor = classifierType.constructor.declarationDescriptor
+                ?: error("Missing supertypes should not be present for type without declaration, but found for type $classifierType")
+            trace.report(
+                Errors.MISSING_DEPENDENCY_SUPERCLASS.on(
+                    reportOn,
+                    missingClassifier.fqNameSafe,
+                    classifierDescriptor.fqNameSafe
                 )
-            }
+            )
         }
     }
-
-    object MISSING_HIERARCHY_FOUND
 }

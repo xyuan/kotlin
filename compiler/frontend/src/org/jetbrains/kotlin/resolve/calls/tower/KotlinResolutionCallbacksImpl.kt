@@ -75,7 +75,8 @@ class KotlinResolutionCallbacksImpl(
     val doubleColonExpressionResolver: DoubleColonExpressionResolver,
     val deprecationResolver: DeprecationResolver,
     val moduleDescriptor: ModuleDescriptor,
-    val topLevelCallContext: BasicCallResolutionContext?
+    val topLevelCallContext: BasicCallResolutionContext?,
+    val supertypesChecker: SupertypesChecker
 ) : KotlinResolutionCallbacks {
     class LambdaInfo(val expectedType: UnwrappedType, val contextDependency: ContextDependency) {
         val returnStatements = ArrayList<Pair<KtReturnExpression, LambdaContextInfo?>>()
@@ -161,7 +162,8 @@ class KotlinResolutionCallbacksImpl(
                     psiCallResolver, postponedArgumentsAnalyzer, kotlinConstraintSystemCompleter,
                     callComponents, builtIns, topLevelCallContext, stubsForPostponedVariables, trace,
                     kotlinToResolvedCallTransformer, expressionTypingServices, argumentTypeResolver,
-                    doubleColonExpressionResolver, deprecationResolver, moduleDescriptor, typeApproximator
+                    doubleColonExpressionResolver, deprecationResolver, moduleDescriptor, typeApproximator,
+                    supertypesChecker
                 )
             } else {
                 null

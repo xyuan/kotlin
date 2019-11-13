@@ -266,7 +266,7 @@ public class ModifiersChecker {
 
         public void runDeclarationCheckers(@NotNull KtDeclaration declaration, @NotNull DeclarationDescriptor descriptor) {
             DeclarationCheckerContext context = new DeclarationCheckerContext(
-                    trace, languageVersionSettings, deprecationResolver, moduleDescriptor, expectActualTracker
+                    trace, languageVersionSettings, deprecationResolver, moduleDescriptor, expectActualTracker, supertypesChecker
             );
             for (DeclarationChecker checker : declarationCheckers) {
                 checker.check(declaration, descriptor, context);
@@ -291,6 +291,7 @@ public class ModifiersChecker {
     private final ExpectActualTracker expectActualTracker;
     private final DeprecationResolver deprecationResolver;
     private final ModuleDescriptor moduleDescriptor;
+    private final SupertypesChecker supertypesChecker;
 
     public ModifiersChecker(
             @NotNull AnnotationChecker annotationChecker,
@@ -298,7 +299,8 @@ public class ModifiersChecker {
             @NotNull LanguageVersionSettings languageVersionSettings,
             @NotNull ExpectActualTracker expectActualTracker,
             @NotNull DeprecationResolver deprecationResolver,
-            @NotNull ModuleDescriptor moduleDescriptor
+            @NotNull ModuleDescriptor moduleDescriptor,
+            @NotNull SupertypesChecker supertypesChecker
     ) {
         this.annotationChecker = annotationChecker;
         this.declarationCheckers = declarationCheckers;
@@ -306,6 +308,7 @@ public class ModifiersChecker {
         this.expectActualTracker = expectActualTracker;
         this.deprecationResolver = deprecationResolver;
         this.moduleDescriptor = moduleDescriptor;
+        this.supertypesChecker = supertypesChecker;
     }
 
     @NotNull
