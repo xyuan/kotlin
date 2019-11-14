@@ -9,6 +9,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.JavaModuleType
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.projectRoots.ProjectJdkTable
+import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.ModuleRootModificationUtil
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.io.FileUtil
@@ -147,6 +148,10 @@ abstract class AbstractScriptConfigurationTest : KotlinCompletionTestCase() {
         System.setProperty("kotlin.script.classpath", oldScripClasspath ?: "")
 
         super.tearDown()
+    }
+
+    override fun getTestProjectJdk(): Sdk {
+        return PluginTestCaseBase.mockJdk()
     }
 
     private fun createTestModuleByName(name: String): Module {
