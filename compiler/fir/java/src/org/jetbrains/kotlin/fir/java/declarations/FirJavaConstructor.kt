@@ -17,6 +17,7 @@ import org.jetbrains.kotlin.fir.expressions.FirAnnotationCall
 import org.jetbrains.kotlin.fir.expressions.FirBlock
 import org.jetbrains.kotlin.fir.expressions.FirDelegatedConstructorCall
 import org.jetbrains.kotlin.fir.impl.FirAbstractAnnotatedElement
+import org.jetbrains.kotlin.fir.java.JavaTypeParameterStack
 import org.jetbrains.kotlin.fir.references.FirControlFlowGraphReference
 import org.jetbrains.kotlin.fir.references.impl.FirEmptyControlFlowGraphReference
 import org.jetbrains.kotlin.fir.symbols.impl.FirConstructorSymbol
@@ -28,14 +29,15 @@ import org.jetbrains.kotlin.fir.visitors.transformSingle
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.serialization.deserialization.descriptors.DeserializedContainerSource
 
-class FirJavaConstructor(
+class FirJavaConstructor internal constructor(
     override val source: FirSourceElement?,
     override val session: FirSession,
     override val symbol: FirConstructorSymbol,
     visibility: Visibility,
     override val isPrimary: Boolean,
     isInner: Boolean,
-    override var returnTypeRef : FirTypeRef
+    override var returnTypeRef : FirTypeRef,
+    internal val javaTypeParameterStack: JavaTypeParameterStack
 ) : FirPureAbstractElement(), FirAbstractAnnotatedElement, FirConstructor {
     override val receiverTypeRef: FirTypeRef? get() = null
     override val typeParameters: MutableList<FirTypeParameter> = mutableListOf()

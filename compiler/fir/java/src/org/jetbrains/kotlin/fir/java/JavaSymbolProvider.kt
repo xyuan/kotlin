@@ -258,7 +258,8 @@ class JavaSymbolProvider(
                                     classTypeParameters.map { ConeTypeParameterTypeImpl(it.symbol.toLookupTag(), false) }.toTypedArray(),
                                     false
                                 )
-                            )
+                            ),
+                            javaTypeParameterStack = javaTypeParameterStack
                         ).apply {
                             this.typeParameters += classTypeParameters
                         }

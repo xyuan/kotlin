@@ -370,7 +370,9 @@ class JavaClassEnhancementScope(
         return EnhancementSignatureParts(
             typeQualifierResolver,
             typeContainer,
-            javaTypeParameterStack,
+            // Nested class constructors are in outer class declared member scopes,
+            // so they (constructors) must have their own type parameter stacks
+            if (this is FirJavaConstructor) this.javaTypeParameterStack else javaTypeParameterStack,
             typeRef as FirJavaTypeRef,
             overriddenMembers.map {
                 typeInSignature.getTypeRef(it)
