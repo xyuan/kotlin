@@ -258,6 +258,9 @@ private fun FirRegularClass.findSingleAbstractMethodByNames(
 
         classUseSiteMemberScope.processFunctionsByName(candidateName) { functionSymbol ->
             val firFunction = functionSymbol.fir
+            if (firFunction is FirConstructor) {
+                return@processFunctionsByName ProcessorAction.NEXT
+            }
             require(firFunction is FirSimpleFunction) {
                 "${functionSymbol.callableId.callableName} is expected to be _root_ide_package_.org.jetbrains.kotlin.fir.declarations.FirSimpleFunction, but ${functionSymbol::class} was found"
             }

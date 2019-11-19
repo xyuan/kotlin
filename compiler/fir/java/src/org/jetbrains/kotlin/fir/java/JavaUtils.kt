@@ -166,8 +166,9 @@ internal fun JavaClassifierType.toConeKotlinTypeWithNullability(
             )
         }
         is JavaTypeParameter -> {
-            val symbol = javaTypeParameterStack[classifier]
-            ConeTypeParameterTypeImpl(symbol.toLookupTag(), isNullable)
+            val symbol = javaTypeParameterStack.safeGet(classifier)
+            symbol?.let { ConeTypeParameterTypeImpl(it.toLookupTag(), isNullable) }
+                ?: ConeClassErrorType(reason = "Unmatched type parameter: $classifier")
         }
         else -> ConeClassErrorType(reason = "Unexpected classifier: $classifier")
     }
