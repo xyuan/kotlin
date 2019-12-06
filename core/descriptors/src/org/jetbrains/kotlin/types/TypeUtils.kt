@@ -265,15 +265,24 @@ fun UnwrappedType.unCapture(): UnwrappedType = when (this) {
 }
 
 fun SimpleType.unCapture(): UnwrappedType {
-    if (this is NewCapturedType)
-        return unCaptureTopLevelType()
+    if (this is ErrorType) return this
 
-    val newArguments = arguments.map { projection ->
-        projection.type.constructor.safeAs<NewCapturedTypeConstructor>()?.let {
-            it.projection
-        } ?: projection
-    }
-    return replace(newArguments)
+    val unCapturedTopLevelType = if (this is NewCapturedType) unCaptureTopLevelType() else this
+    val newArguments = unCapturedTopLevelType.arguments.map(::unCaptureProjection)
+    return unCapturedTopLevelType.replace(newArguments).unwrap()
+}
+
+fun unCaptureProjection(projection: TypeProjection): TypeProjection {
+    val unCapturedProjection = projection.type.constructor.safeAs<NewCapturedTypeConstructor>()?.let {
+        it.projection
+    } ?: projection
+    if (unCapturedProjection.type is ErrorType) return unCapturedProjection
+
+    val newArguments = unCapturedProjection.type.arguments.map(::unCaptureProjection)
+    return TypeProjectionImpl(
+        unCapturedProjection.projectionKind,
+        unCapturedProjection.type.replace(newArguments)
+    )
 }
 
 fun AbbreviatedType.unCapture(): SimpleType {

@@ -2756,6 +2756,11 @@ public class DiagnosticsTestWithStdLibUsingJavacGenerated extends AbstractDiagno
             runTest("compiler/testData/diagnostics/testsWithStdLib/inference/kt3458.kt");
         }
 
+        @TestMetadata("kt35210.kt")
+        public void testKt35210() throws Exception {
+            runTest("compiler/testData/diagnostics/testsWithStdLib/inference/kt35210.kt");
+        }
+
         @TestMetadata("kt4975.kt")
         public void testKt4975() throws Exception {
             runTest("compiler/testData/diagnostics/testsWithStdLib/inference/kt4975.kt");
@@ -2836,6 +2841,11 @@ public class DiagnosticsTestWithStdLibUsingJavacGenerated extends AbstractDiagno
             @TestMetadata("onlyInputTypesCaptured.kt")
             public void testOnlyInputTypesCaptured() throws Exception {
                 runTest("compiler/testData/diagnostics/testsWithStdLib/inference/annotationsForResolve/onlyInputTypesCaptured.kt");
+            }
+
+            @TestMetadata("onlyInputTypesCommonConstraintSystem.kt")
+            public void testOnlyInputTypesCommonConstraintSystem() throws Exception {
+                runTest("compiler/testData/diagnostics/testsWithStdLib/inference/annotationsForResolve/onlyInputTypesCommonConstraintSystem.kt");
             }
 
             @TestMetadata("onlyInputTypesWithVarargs.kt")

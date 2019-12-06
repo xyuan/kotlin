@@ -22,10 +22,7 @@ import org.jetbrains.kotlin.resolve.calls.inference.model.Constraint
 import org.jetbrains.kotlin.resolve.calls.inference.model.DeclaredUpperBoundConstraintPosition
 import org.jetbrains.kotlin.resolve.calls.inference.model.VariableWithConstraints
 import org.jetbrains.kotlin.resolve.calls.model.PostponedResolvedAtomMarker
-import org.jetbrains.kotlin.types.model.KotlinTypeMarker
-import org.jetbrains.kotlin.types.model.TypeConstructorMarker
-import org.jetbrains.kotlin.types.model.TypeSystemInferenceExtensionContext
-import org.jetbrains.kotlin.types.model.TypeVariableMarker
+import org.jetbrains.kotlin.types.model.*
 
 class VariableFixationFinder(
     private val trivialConstraintTypeInferenceOracle: TrivialConstraintTypeInferenceOracle
