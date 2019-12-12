@@ -21,6 +21,8 @@ class FirLazyNestedClassifierScope(
     private val symbolProvider: FirSymbolProvider
 ) : FirScope() {
 
+    private val symbolCache = hashMapOf<Name, FirClassifierSymbol<*>>()
+
     override fun processClassifiersByName(
         name: Name,
         processor: (FirClassifierSymbol<*>) -> ProcessorAction
@@ -28,8 +30,10 @@ class FirLazyNestedClassifierScope(
         if (name !in existingNames) {
             return ProcessorAction.NONE
         }
-        val child = classId.createNestedClassId(name)
-        val symbol = symbolProvider.getClassLikeSymbolByFqName(child) ?: return ProcessorAction.NONE
+        val symbol = symbolCache.getOrPut(name) {
+            val child = classId.createNestedClassId(name)
+            symbolProvider.getClassLikeSymbolByFqName(child) ?: return ProcessorAction.NONE
+        }
 
         return processor(symbol)
     }
