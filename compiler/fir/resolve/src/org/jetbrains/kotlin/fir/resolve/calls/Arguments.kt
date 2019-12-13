@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.fir.declarations.FirAnonymousFunction
 import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
 import org.jetbrains.kotlin.fir.declarations.FirValueParameter
 import org.jetbrains.kotlin.fir.expressions.*
+import org.jetbrains.kotlin.fir.inferenceContext
 import org.jetbrains.kotlin.fir.references.FirResolvedNamedReference
 import org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.firUnsafe
 import org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.resultType
@@ -18,6 +19,7 @@ import org.jetbrains.kotlin.fir.returnExpressions
 import org.jetbrains.kotlin.fir.scopes.impl.FirILTTypeRefPlaceHolder
 import org.jetbrains.kotlin.fir.scopes.impl.FirIntegerOperator
 import org.jetbrains.kotlin.fir.scopes.impl.FirIntegerOperatorCall
+import org.jetbrains.kotlin.fir.typeContext
 import org.jetbrains.kotlin.fir.types.*
 import org.jetbrains.kotlin.resolve.calls.inference.ConstraintSystemBuilder
 import org.jetbrains.kotlin.resolve.calls.inference.addSubtypeConstraintIfCompatible
@@ -129,7 +131,7 @@ private fun Candidate.resolveBlockArgument(
             SimpleConstraintSystemConstraintPosition,
             isReceiver = false,
             isDispatch = false,
-            nullableExpectedType = expectedType.type.withNullability(ConeNullability.NULLABLE),
+            nullableExpectedType = expectedType.type.withNullability(ConeNullability.NULLABLE, sink.components.session.inferenceContext),
             sink = sink
         )
         return
@@ -216,9 +218,10 @@ fun Candidate.resolvePlainArgumentType(
 ) {
     val position = SimpleConstraintSystemConstraintPosition //TODO
 
-    val capturedType = prepareCapturedType(argumentType, sink.components.session)
+    val session = sink.components.session
+    val capturedType = prepareCapturedType(argumentType, session)
 
-    val nullableExpectedType = expectedType.withNullability(ConeNullability.NULLABLE)
+    val nullableExpectedType = expectedType.withNullability(ConeNullability.NULLABLE, session.inferenceContext)
     if (isReceiver && isSafeCall) {
         if (!isDispatch && !csBuilder.addSubtypeConstraintIfCompatible(capturedType, nullableExpectedType, position)) {
             sink.reportApplicability(CandidateApplicability.WRONG_RECEIVER) // TODO
