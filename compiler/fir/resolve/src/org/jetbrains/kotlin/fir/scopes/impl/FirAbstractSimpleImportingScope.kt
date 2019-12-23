@@ -23,13 +23,17 @@ abstract class FirAbstractSimpleImportingScope(
 
     protected abstract val simpleImports: Map<Name, List<FirResolvedImportImpl>>
 
+    private val absentClassifierNames = mutableSetOf<Name>()
+
     override fun processClassifiersByName(
         name: Name,
         processor: (FirClassifierSymbol<*>) -> ProcessorAction
     ): ProcessorAction {
         val imports = simpleImports[name] ?: return ProcessorAction.NONE
         if (imports.isEmpty()) return ProcessorAction.NONE
+        if (name in absentClassifierNames) return ProcessorAction.NONE
         val provider = FirSymbolProvider.getInstance(session)
+        var empty = true
         for (import in imports) {
             val importedName = import.importedName ?: continue
             val classId =
@@ -39,6 +43,11 @@ abstract class FirAbstractSimpleImportingScope(
             if (!processor(symbol)) {
                 return ProcessorAction.STOP
             }
+            empty = false
+        }
+        if (empty) {
+            absentClassifierNames += name
+            return ProcessorAction.NONE
         }
         return ProcessorAction.NEXT
     }
