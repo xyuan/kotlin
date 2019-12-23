@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.fir.declarations.FirResolvedImport
 import org.jetbrains.kotlin.fir.resolve.ScopeSession
 import org.jetbrains.kotlin.fir.resolve.calls.TowerScopeLevel
 import org.jetbrains.kotlin.fir.scopes.ProcessorAction
+import org.jetbrains.kotlin.fir.scopes.processTopLevelClassifierInPackageMemberScope
 import org.jetbrains.kotlin.fir.symbols.impl.FirCallableSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassifierSymbol
 import org.jetbrains.kotlin.name.ClassId
@@ -35,15 +36,22 @@ abstract class FirAbstractStarImportingScope(
         var empty = true
         for (import in starImports) {
             val relativeClassName = import.relativeClassName
-            val classId = when {
-                !name.isSpecial && name.identifier.isEmpty() -> return ProcessorAction.NEXT
-                relativeClassName == null -> ClassId(import.packageFqName, name)
-                else -> ClassId(import.packageFqName, relativeClassName.child(name), false)
+            if (!name.isSpecial && name.identifier.isEmpty()) {
+                return ProcessorAction.NEXT
             }
-            val symbol = provider.getClassLikeSymbolByFqName(classId) ?: continue
-            empty = false
-            if (!processor(symbol)) {
-                return ProcessorAction.STOP
+            if (relativeClassName == null) {
+                when (scopeSession.processTopLevelClassifierInPackageMemberScope(session, import.packageFqName, name, processor)) {
+                    ProcessorAction.NEXT -> empty = false
+                    ProcessorAction.STOP -> return ProcessorAction.STOP
+                    ProcessorAction.NONE -> {}
+                }
+            } else {
+                val classId = ClassId(import.packageFqName, relativeClassName.child(name), false)
+                val symbol = provider.getClassLikeSymbolByFqName(classId) ?: continue
+                if (!processor(symbol)) {
+                    return ProcessorAction.STOP
+                }
+                empty = false
             }
         }
         if (empty) {
