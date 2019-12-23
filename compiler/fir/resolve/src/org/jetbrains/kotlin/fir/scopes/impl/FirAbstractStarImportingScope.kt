@@ -48,6 +48,7 @@ abstract class FirAbstractStarImportingScope(
         }
         if (empty) {
             absentClassifierNames += name
+            return ProcessorAction.NONE
         }
         return ProcessorAction.NEXT
     }
