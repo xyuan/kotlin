@@ -11,9 +11,9 @@ import org.jetbrains.kotlin.fir.resolve.FirSymbolProvider
 import org.jetbrains.kotlin.fir.resolve.ScopeSession
 import org.jetbrains.kotlin.fir.resolve.calls.TowerScopeLevel
 import org.jetbrains.kotlin.fir.scopes.ProcessorAction
+import org.jetbrains.kotlin.fir.scopes.processTopLevelClassifierInPackageMemberScope
 import org.jetbrains.kotlin.fir.symbols.impl.FirCallableSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassifierSymbol
-import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.Name
 
 abstract class FirAbstractSimpleImportingScope(
@@ -32,12 +32,18 @@ abstract class FirAbstractSimpleImportingScope(
         val provider = FirSymbolProvider.getInstance(session)
         for (import in imports) {
             val importedName = import.importedName ?: continue
-            val classId =
-                import.resolvedClassId?.createNestedClassId(importedName)
-                    ?: ClassId.topLevel(import.packageFqName.child(importedName))
-            val symbol = provider.getClassLikeSymbolByFqName(classId) ?: continue
-            if (!processor(symbol)) {
-                return ProcessorAction.STOP
+            val classId = import.resolvedClassId?.createNestedClassId(importedName)
+            if (classId != null) {
+                val symbol = provider.getClassLikeSymbolByFqName(classId) ?: continue
+                if (!processor(symbol)) {
+                    return ProcessorAction.STOP
+                }
+            } else {
+                when (scopeSession.processTopLevelClassifierInPackageMemberScope(session, import.packageFqName, importedName, processor)) {
+                    ProcessorAction.NEXT -> {}
+                    ProcessorAction.STOP -> return ProcessorAction.STOP
+                    ProcessorAction.NONE -> {}
+                }
             }
         }
         return ProcessorAction.NEXT
