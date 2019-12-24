@@ -190,3 +190,11 @@ org.jetbrains.kotlin.idea.configuration.ConfigureKotlinInTempDirTest.testKotlinc
 org.jetbrains.kotlin.idea.configuration.ConfigureKotlinInTempDirTest.testNoKotlincExistsNoSettingsRuntime10, FLAKY
 org.jetbrains.kotlin.idea.maven.MavenMigrateTest.testMigrateApiAndLanguageVersions, FLAKY on windows
 org.jetbrains.kotlin.idea.spring.tests.references.SpringReferenceNavigationTestGenerated.testPackageReferenceInComponentScan, Always red because of test data
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Neg.test11, KT-35652
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Neg.test15, KT-35652
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Neg.test32, KT-35652
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Pos.test33, KT-35652
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Pos.test35, KT-35652
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Pos.test36, KT-35652
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Pos.test37, KT-35652
+org.jetbrains.kotlin.spec.checkers.DiagnosticsTestSpecGenerated.NotLinked.Dfa.Pos.test6, KT-35652
