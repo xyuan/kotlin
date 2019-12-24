@@ -152,6 +152,7 @@ class AccumulatingTowerDataConsumer(
 
     fun addConsumerAndProcessAccumulatedData(consumer: TowerDataConsumer): ProcessorAction {
         additionalConsumers += consumer
+        // dropLast
         for ((kind, level, group) in accumulatedTowerData) {
             if (consumer.consume(kind, level, group).stop()) {
                 return ProcessorAction.STOP
