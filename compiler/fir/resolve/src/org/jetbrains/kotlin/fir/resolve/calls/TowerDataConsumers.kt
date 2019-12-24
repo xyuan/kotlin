@@ -139,7 +139,7 @@ class AccumulatingTowerDataConsumer(
         return if (empty) ProcessorAction.NONE else ProcessorAction.NEXT
     }
 
-    fun addConsumer(consumer: TowerDataConsumer): ProcessorAction {
+    fun addConsumerAndProcessAccumulatedData(consumer: TowerDataConsumer): ProcessorAction {
         additionalConsumers += consumer
         for ((kind, level, group) in accumulatedTowerData) {
             if (consumer.consume(kind, level, group).stop()) {
