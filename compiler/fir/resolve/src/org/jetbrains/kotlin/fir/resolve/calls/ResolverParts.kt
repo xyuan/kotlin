@@ -139,16 +139,23 @@ internal object MapArguments : ResolutionStage() {
     override suspend fun check(candidate: Candidate, sink: CheckerSink, callInfo: CallInfo) {
         val symbol = candidate.symbol as? FirFunctionSymbol<*> ?: return sink.reportApplicability(CandidateApplicability.HIDDEN)
         val function = symbol.fir
-        val processor = if (candidate.dispatchReceiverValue?.type?.isBuiltinFunctionalType == true) {
-            FirCallArgumentsProcessor(
+        if (candidate.dispatchReceiverValue?.type?.isBuiltinFunctionalType == true) {
+            // We don't know is it extension function or not due to lack of annotations
+            // So we have to check both variants, with receiver and without it
+            // TODO: remove this double-check after KT-30066
+            val processorWithReceiver = FirCallArgumentsProcessor(
                 function,
                 listOfNotNull(
                     (callInfo.explicitReceiver as? FirQualifiedAccess)?.extensionReceiver?.takeIf { it !is FirNoReceiverExpression }
                 ) + callInfo.arguments
             )
-        } else {
-            FirCallArgumentsProcessor(function, callInfo.arguments)
+            val mappingResult = processorWithReceiver.process()
+            candidate.argumentMapping = mappingResult.argumentMapping
+            if (mappingResult.isSuccess) {
+                return
+            }
         }
+        val processor = FirCallArgumentsProcessor(function, callInfo.arguments)
         val mappingResult = processor.process()
         candidate.argumentMapping = mappingResult.argumentMapping
         if (!mappingResult.isSuccess) {

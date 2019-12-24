@@ -654,6 +654,11 @@ public class FirDiagnosticsTestGenerated extends AbstractFirDiagnosticsTest {
                 KotlinTestUtils.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/fir/resolve/testData/resolve/expresssions/invoke"), Pattern.compile("^([^.]+)\\.kt$"), null, true);
             }
 
+            @TestMetadata("doubleBrackets.kt")
+            public void testDoubleBrackets() throws Exception {
+                runTest("compiler/fir/resolve/testData/resolve/expresssions/invoke/doubleBrackets.kt");
+            }
+
             @TestMetadata("explicitReceiver.kt")
             public void testExplicitReceiver() throws Exception {
                 runTest("compiler/fir/resolve/testData/resolve/expresssions/invoke/explicitReceiver.kt");

@@ -12,7 +12,7 @@ fun test(a: A, b: B) {
     b.<!UNRESOLVED_REFERENCE!>(a)()<!>
 
     with(b) {
-        val y: Int = <!UNRESOLVED_REFERENCE!>a<!>()
+        val y: Int = a()
         <!UNRESOLVED_REFERENCE!>(a)()<!>
     }
 }
