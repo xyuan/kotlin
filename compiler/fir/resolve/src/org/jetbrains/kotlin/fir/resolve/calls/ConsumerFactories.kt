@@ -19,6 +19,7 @@ fun createVariableAndObjectConsumer(
 ): TowerDataConsumer {
     return PrioritizedTowerDataConsumer(
         resultCollector,
+        { true },
         createSimpleConsumer(
             session,
             name,
@@ -79,6 +80,7 @@ fun createFunctionConsumer(
     )
     return PrioritizedTowerDataConsumer(
         resultCollector,
+        { true },
         createSimpleConsumer(
             session,
             name,
@@ -101,7 +103,7 @@ fun createFunctionConsumer(
                     invokeConsumer = this,
                     resolutionStageRunner = resultCollector.resolutionStageRunner
                 )
-            )
+            ) { resultCollector.isSuccess() }
         }
     )
 }
@@ -112,7 +114,8 @@ fun createSimpleConsumer(
     token: TowerScopeLevel.Token<*>,
     callInfo: CallInfo,
     bodyResolveComponents: BodyResolveComponents,
-    resultCollector: CandidateCollector
+    resultCollector: CandidateCollector,
+    additionalSuccessChecker: SuccessChecker = { true }
 ): TowerDataConsumer {
     val factory = CandidateFactory(bodyResolveComponents, callInfo)
     val explicitReceiver = callInfo.explicitReceiver
@@ -120,23 +123,24 @@ fun createSimpleConsumer(
         val receiverValue = ExpressionReceiverValue(explicitReceiver, callInfo.typeProvider)
         if (explicitReceiver is FirResolvedQualifier) {
             val qualified =
-                QualifiedReceiverTowerDataConsumer(session, name, token, receiverValue, factory, resultCollector)
+                QualifiedReceiverTowerDataConsumer(session, name, token, receiverValue, factory, resultCollector, additionalSuccessChecker)
 
             if (explicitReceiver.classId != null) {
                 PrioritizedTowerDataConsumer(
                     resultCollector,
+                    additionalSuccessChecker,
                     qualified,
-                    ExplicitReceiverTowerDataConsumer(session, name, token, receiverValue, factory, resultCollector)
+                    ExplicitReceiverTowerDataConsumer(session, name, token, receiverValue, factory, resultCollector, additionalSuccessChecker)
                 )
             } else {
                 qualified
             }
 
         } else {
-            ExplicitReceiverTowerDataConsumer(session, name, token, receiverValue, factory, resultCollector)
+            ExplicitReceiverTowerDataConsumer(session, name, token, receiverValue, factory, resultCollector, additionalSuccessChecker)
         }
     } else {
-        NoExplicitReceiverTowerDataConsumer(session, name, token, factory, resultCollector)
+        NoExplicitReceiverTowerDataConsumer(session, name, token, factory, resultCollector, additionalSuccessChecker)
     }
 }
 
@@ -150,6 +154,7 @@ fun createCallableReferencesConsumer(
     // TODO: Use SamePriorityConsumer
     return PrioritizedTowerDataConsumer(
         resultCollector,
+        { true },
         createSimpleConsumer(session, name, TowerScopeLevel.Token.Functions, callInfo, bodyResolveComponents, resultCollector),
         createSimpleConsumer(session, name, TowerScopeLevel.Token.Properties, callInfo, bodyResolveComponents, resultCollector)
     )

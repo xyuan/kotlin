@@ -382,6 +382,7 @@ class FirCallResolver(
 
         return PrioritizedTowerDataConsumer(
             resultCollector,
+            { true },
             *Array(receivers.size) { index ->
                 createCallableReferencesConsumerForReceiver(
                     name, resultCollector, receivers[index], expectedType, outerConstraintSystemBuilder, lhs
