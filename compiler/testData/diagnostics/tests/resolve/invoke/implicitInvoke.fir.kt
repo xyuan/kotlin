@@ -25,7 +25,7 @@ fun test(c: () -> String, e: Int.() -> String) {
     (c)()
 
     3.e()
-    3.<!UNRESOLVED_REFERENCE!>(e)()<!>
+    3.(e)()
     with(3) {
         e()
         (e)()
