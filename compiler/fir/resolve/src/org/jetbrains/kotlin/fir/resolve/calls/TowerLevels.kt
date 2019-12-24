@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.fir.symbols.impl.*
 import org.jetbrains.kotlin.fir.types.isExtensionFunctionType
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import org.jetbrains.kotlin.util.OperatorNameConventions
 import org.jetbrains.kotlin.utils.addToStdlib.cast
 
 interface TowerScopeLevel {
@@ -49,7 +50,7 @@ interface TowerScopeLevel {
         ): ProcessorAction
     }
 
-    object Empty : TowerScopeLevel {
+    abstract class StubTowerScopeLevel : TowerScopeLevel {
         override fun <T : AbstractFirBasedSymbol<*>> processElementsByName(
             token: Token<T>,
             name: Name,
@@ -57,6 +58,10 @@ interface TowerScopeLevel {
             processor: TowerScopeLevelProcessor<T>
         ): ProcessorAction = ProcessorAction.NEXT
     }
+
+    object Empty : StubTowerScopeLevel()
+
+    class OnlyImplicitReceiver(val implicitReceiverValue: ImplicitReceiverValue<*>) : StubTowerScopeLevel()
 }
 
 abstract class SessionBasedTowerLevel(val session: FirSession) : TowerScopeLevel {
@@ -89,6 +94,7 @@ class MemberScopeTowerLevel(
     val bodyResolveComponents: BodyResolveComponents,
     val dispatchReceiver: ReceiverValue,
     val implicitExtensionReceiver: ImplicitReceiverValue<*>? = null,
+    val invokeOnly: Boolean = false,
     val scopeSession: ScopeSession
 ) : SessionBasedTowerLevel(session) {
     private fun <T : AbstractFirBasedSymbol<*>> processMembers(
@@ -100,7 +106,7 @@ class MemberScopeTowerLevel(
         val extensionReceiver = implicitExtensionReceiver ?: explicitExtensionReceiver
         val scope = dispatchReceiver.scope(session, scopeSession) ?: return ProcessorAction.NEXT
         if (scope.processScopeMembers { candidate ->
-                if (candidate is FirCallableSymbol<*> && candidate.hasConsistentExtensionReceiver(extensionReceiver)) {
+                if (candidate is FirCallableSymbol<*> && (invokeOnly || candidate.hasConsistentExtensionReceiver(extensionReceiver))) {
                     // NB: we do not check dispatchReceiverValue != null here,
                     // because of objects & constructors (see comments in dispatchReceiverValue() implementation)
                     output.consumeCandidate(candidate, candidate.dispatchReceiverValue(), implicitExtensionReceiver)
@@ -123,6 +129,9 @@ class MemberScopeTowerLevel(
         explicitReceiver: ExpressionReceiverValue?,
         processor: TowerScopeLevel.TowerScopeLevelProcessor<T>
     ): ProcessorAction {
+        if (invokeOnly && (token != TowerScopeLevel.Token.Functions || name != OperatorNameConventions.INVOKE)) {
+            return ProcessorAction.NEXT
+        }
         val explicitExtensionReceiver = if (dispatchReceiver == explicitReceiver) null else explicitReceiver
         return when (token) {
             TowerScopeLevel.Token.Properties -> processMembers(processor, explicitExtensionReceiver) { symbol ->

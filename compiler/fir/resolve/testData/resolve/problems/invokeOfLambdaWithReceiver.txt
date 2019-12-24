@@ -5,5 +5,15 @@ FILE: invokeOfLambdaWithReceiver.kt
         R|<local>/a|.R|<local>/block|.R|FakeOverride<kotlin/Function1.invoke: R|kotlin/Int|>|()
     }
     public final fun R|A|.otherTest(block: R|A.() -> kotlin/Int|): R|kotlin/Unit| {
-        this@R|/otherTest|.R|<local>/block|.R|FakeOverride<kotlin/Function1.invoke: R|kotlin/Int|>|()
+        (R|<local>/block|, this@R|/otherTest|).R|FakeOverride<kotlin/Function1.invoke: R|kotlin/Int|>|()
+    }
+    public final class B : R|kotlin/Any| {
+        public constructor(): R|B| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final fun anotherTest(block: R|B.() -> kotlin/Int|): R|kotlin/Unit| {
+            (R|<local>/block|, this@R|/B|).R|FakeOverride<kotlin/Function1.invoke: R|kotlin/Int|>|()
+        }
+
     }

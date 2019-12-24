@@ -143,11 +143,12 @@ internal object MapArguments : ResolutionStage() {
             // We don't know is it extension function or not due to lack of annotations
             // So we have to check both variants, with receiver and without it
             // TODO: remove this double-check after KT-30066
+            val lambdaExtensionReceiver =
+                (callInfo.explicitReceiver as? FirQualifiedAccess)?.extensionReceiver?.takeIf { it !is FirNoReceiverExpression }
+                    ?: (candidate.implicitExtensionReceiverValue as? ImplicitReceiverValue)?.receiverExpression
             val processorWithReceiver = FirCallArgumentsProcessor(
                 function,
-                listOfNotNull(
-                    (callInfo.explicitReceiver as? FirQualifiedAccess)?.extensionReceiver?.takeIf { it !is FirNoReceiverExpression }
-                ) + callInfo.arguments
+                listOfNotNull(lambdaExtensionReceiver) + callInfo.arguments
             )
             val mappingResult = processorWithReceiver.process()
             candidate.argumentMapping = mappingResult.argumentMapping
