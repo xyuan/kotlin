@@ -18,12 +18,8 @@ import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.resolve.calls.tasks.ExplicitReceiverKind
 import org.jetbrains.kotlin.types.AbstractTypeChecker
 
-typealias SuccessChecker = () -> Boolean
-
 abstract class TowerDataConsumer {
     abstract val resultCollector: CandidateCollector
-
-    abstract val additionalSuccessChecker: SuccessChecker
 
     abstract fun consume(
         kind: TowerDataKind,
@@ -34,7 +30,7 @@ abstract class TowerDataConsumer {
     private var stopGroup = Int.MAX_VALUE
 
     fun skipGroup(group: Int): Boolean {
-        if (stopGroup == Int.MAX_VALUE && resultCollector.isSuccess() && additionalSuccessChecker()) {
+        if (stopGroup == Int.MAX_VALUE && resultCollector.isSuccess()) {
             stopGroup = group
         }
         if (group >= stopGroup) return true
@@ -48,8 +44,7 @@ class QualifiedReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
     val token: TowerScopeLevel.Token<T>,
     val explicitReceiver: ExpressionReceiverValue,
     val candidateFactory: CandidateFactory,
-    override val resultCollector: CandidateCollector,
-    override val additionalSuccessChecker: SuccessChecker
+    override val resultCollector: CandidateCollector
 ) : TowerDataConsumer() {
     override fun consume(
         kind: TowerDataKind,
@@ -91,7 +86,6 @@ class QualifiedReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
 
 class PrioritizedTowerDataConsumer(
     override val resultCollector: CandidateCollector,
-    override val additionalSuccessChecker: SuccessChecker,
     private vararg val consumers: TowerDataConsumer
 ) : TowerDataConsumer() {
     override fun consume(
@@ -118,9 +112,6 @@ class AccumulatingTowerDataConsumer(
     override val resultCollector: CandidateCollector
 ) : TowerDataConsumer() {
     lateinit var initialConsumer: TowerDataConsumer
-
-    override val additionalSuccessChecker: SuccessChecker
-        get() = { true }
 
     private val additionalConsumers = mutableListOf<TowerDataConsumer>()
 
@@ -168,8 +159,7 @@ class ExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
     val token: TowerScopeLevel.Token<T>,
     val explicitReceiver: ExpressionReceiverValue,
     val candidateFactory: CandidateFactory,
-    override val resultCollector: CandidateCollector,
-    override val additionalSuccessChecker: SuccessChecker
+    override val resultCollector: CandidateCollector
 ) : TowerDataConsumer() {
 
     companion object {
@@ -273,8 +263,7 @@ class NoExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
     val name: Name,
     val token: TowerScopeLevel.Token<T>,
     val candidateFactory: CandidateFactory,
-    override val resultCollector: CandidateCollector,
-    override val additionalSuccessChecker: SuccessChecker
+    override val resultCollector: CandidateCollector
 ) : TowerDataConsumer() {
     override fun consume(
         kind: TowerDataKind,
