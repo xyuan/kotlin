@@ -71,8 +71,10 @@ abstract class SessionBasedTowerLevel(val session: FirSession) : TowerScopeLevel
     }
 
     protected fun FirCallableSymbol<*>.hasConsistentExtensionReceiver(extensionReceiver: ReceiverValue?): Boolean {
-        val hasExtensionReceiver = hasExtensionReceiver()
-        return hasExtensionReceiver == (extensionReceiver != null)
+        return when {
+            extensionReceiver != null -> hasExtensionReceiver()
+            else -> fir.receiverTypeRef == null
+        }
     }
 }
 
@@ -153,8 +155,7 @@ class ScopeTowerLevel(
     private fun FirCallableSymbol<*>.hasConsistentReceivers(extensionReceiver: ReceiverValue?): Boolean =
         when {
             extensionsOnly && !hasExtensionReceiver() -> false
-//            !hasConsistentExtensionReceiver(extensionReceiver) -> false
-            !hasConsistentExtensionReceiver(extensionReceiver) && (extensionReceiver != null || fir.receiverTypeRef != null) -> false
+            !hasConsistentExtensionReceiver(extensionReceiver) -> false
             scope is FirAbstractImportingScope -> true
             else -> dispatchReceiverValue().let { it == null || it.klassSymbol.fir.classKind == ClassKind.OBJECT }
         }

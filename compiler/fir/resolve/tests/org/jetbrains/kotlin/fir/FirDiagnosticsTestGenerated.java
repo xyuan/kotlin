@@ -694,6 +694,11 @@ public class FirDiagnosticsTestGenerated extends AbstractFirDiagnosticsTest {
                 runTest("compiler/fir/resolve/testData/resolve/expresssions/invoke/propertyFromParameter.kt");
             }
 
+            @TestMetadata("propertyWithExtensionType.kt")
+            public void testPropertyWithExtensionType() throws Exception {
+                runTest("compiler/fir/resolve/testData/resolve/expresssions/invoke/propertyWithExtensionType.kt");
+            }
+
             @TestMetadata("simple.kt")
             public void testSimple() throws Exception {
                 runTest("compiler/fir/resolve/testData/resolve/expresssions/invoke/simple.kt");
