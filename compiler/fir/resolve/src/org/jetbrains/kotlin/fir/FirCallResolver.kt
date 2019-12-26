@@ -312,6 +312,7 @@ class FirCallResolver(
                     it,
                     dispatchReceiverValue = null,
                     implicitExtensionReceiverValue = null,
+                    builtInExtensionFunctionReceiverValue = null,
                     ExplicitReceiverKind.NO_EXPLICIT_RECEIVER
                 )
             }

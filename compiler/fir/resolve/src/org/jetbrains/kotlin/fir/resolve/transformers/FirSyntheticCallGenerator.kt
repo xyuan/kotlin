@@ -136,6 +136,7 @@ class FirSyntheticCallGenerator(
             symbol = function.symbol,
             dispatchReceiverValue = null,
             implicitExtensionReceiverValue = null,
+            builtInExtensionFunctionReceiverValue = null,
             explicitReceiverKind = ExplicitReceiverKind.NO_EXPLICIT_RECEIVER
         )
 

@@ -66,7 +66,8 @@ class QualifiedReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
         override fun consumeCandidate(
             symbol: T,
             dispatchReceiverValue: ClassDispatchReceiverValue?,
-            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?
+            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?,
+            builtInExtensionFunctionReceiverValue: ReceiverValue?
         ): ProcessorAction {
             assert(dispatchReceiverValue == null)
             resultCollector.consumeCandidate(
@@ -75,6 +76,7 @@ class QualifiedReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
                     symbol,
                     dispatchReceiverValue = null,
                     implicitExtensionReceiverValue = null,
+                    builtInExtensionFunctionReceiverValue = null,
                     explicitReceiverKind = ExplicitReceiverKind.NO_EXPLICIT_RECEIVER
                 )
             )
@@ -203,7 +205,8 @@ class ExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
         override fun consumeCandidate(
             symbol: T,
             dispatchReceiverValue: ClassDispatchReceiverValue?,
-            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?
+            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?,
+            builtInExtensionFunctionReceiverValue: ReceiverValue?
         ): ProcessorAction {
             resultCollector.consumeCandidate(
                 group,
@@ -211,6 +214,7 @@ class ExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
                     symbol,
                     dispatchReceiverValue,
                     implicitExtensionReceiverValue,
+                    builtInExtensionFunctionReceiverValue,
                     ExplicitReceiverKind.DISPATCH_RECEIVER
                 )
             )
@@ -222,7 +226,8 @@ class ExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
         override fun consumeCandidate(
             symbol: T,
             dispatchReceiverValue: ClassDispatchReceiverValue?,
-            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?
+            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?,
+            builtInExtensionFunctionReceiverValue: ReceiverValue?
         ): ProcessorAction {
             if (symbol is FirNamedFunctionSymbol && symbol.callableId.packageName.startsWith(defaultPackage)) {
                 val explicitReceiverType = explicitReceiver.type
@@ -249,6 +254,7 @@ class ExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
                 symbol,
                 dispatchReceiverValue,
                 implicitExtensionReceiverValue,
+                builtInExtensionFunctionReceiverValue,
                 ExplicitReceiverKind.EXTENSION_RECEIVER
             )
 
@@ -292,7 +298,8 @@ class NoExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
         override fun consumeCandidate(
             symbol: T,
             dispatchReceiverValue: ClassDispatchReceiverValue?,
-            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?
+            implicitExtensionReceiverValue: ImplicitReceiverValue<*>?,
+            builtInExtensionFunctionReceiverValue: ReceiverValue?
         ): ProcessorAction {
             resultCollector.consumeCandidate(
                 group,
@@ -300,6 +307,7 @@ class NoExplicitReceiverTowerDataConsumer<T : AbstractFirBasedSymbol<*>>(
                     symbol,
                     dispatchReceiverValue,
                     implicitExtensionReceiverValue,
+                    builtInExtensionFunctionReceiverValue,
                     ExplicitReceiverKind.NO_EXPLICIT_RECEIVER
                 )
             )
